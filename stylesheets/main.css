@@ -1,0 +1,336 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link, a:visited {
+    color: inherit;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 100vh;
+    width: 100vw;
+}
+
+#start-screen {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-image:url(/resources/img/output_gQtj0m.gif);
+    background-repeat: no-repeat;
+}
+
+aside {
+    position: relative;  
+    width: 50%;
+    height: 100%;
+}
+
+h1 {
+    font-weight: 700;
+    position: absolute;
+    font-size: 72px;
+    height: 400px;
+    width: 500px;
+    color: #fff;
+    transform: translate(50%, 20%)
+}
+
+#start-game {
+    font-weight: 100;
+    position: absolute;
+    transform: translate(110%, 800%);
+    font-size: 50px;
+    color: #fff;
+    text-decoration: none;
+}
+
+#start-game:hover:before {
+    content: "> "
+}
+
+/*---------------------*/
+/*---- Main-screen ----*/
+/*---------------------*/
+
+.control {
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    height: 70px;
+}
+
+.toggle-camera {
+    bottom: 0%;
+    position: absolute;
+    margin-left: 25%;
+    height: 60px;
+    width: 600px;
+}
+
+#power {
+    margin: 0 0 20px 20px;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 200px;
+    color: #fff;
+    font-size: 24px;
+}
+
+#usage {
+    margin: 20px 20px;
+    position: absolute;
+    top: 15%;
+    left: 0%;
+    width: 200px;
+    height: 32px;
+    color: #fff;
+    font-size: 24px;
+}
+
+.left-door-switch {
+    position: absolute;
+    top: 50%;
+    height: 247px;
+    width: 92px;
+}
+
+.left-door a {
+    position:absolute;
+    top: 0%;
+    height: 127px;
+    width: 92px;
+    background-image: url(/resources/img/left_door_open.png);
+}
+
+.left-light a {
+    position: absolute;
+	top: 50%;
+    height: 120px;
+    width: 92px;
+    background-image: url(/resources/img/left_light_off.png);
+}
+
+.right-door-switch {
+    top: 50%;
+    right: 0%;
+    position: absolute;
+    height: 247px;
+    width: 92px;
+}
+
+.right-door a {
+    position:absolute;
+    top: 0%;
+    height: 127px;
+    width: 92px;
+    background-image: url(/resources/img/right_door_open.png);
+}
+
+.right-light a {
+    position: absolute;
+	top: 50%;
+    height: 120px;
+    width: 92px;
+    background-image: url(/resources/img/right_light_off.png);
+}
+
+
+
+
+/*---------------------*/
+/*------ Camera -------*/
+/*---------------------*/
+
+#camera-menu {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-image: url(/resources/img/19.png);
+    background-repeat: no-repeat;
+    
+}
+
+#cameras {
+    position: absolute;
+	height: 60vh;
+    width: 30vw;
+    top: 40%;
+    right: 0%;
+    float: right;
+}
+
+#cam1a {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 42%;
+    right: 17%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam1b {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 51%;
+    right: 19%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam5 {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 54%;
+    right: 27%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam1c {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 63%;
+    right: 21%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam3 {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 78%;
+    right: 24%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam2a {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 80%;
+    right: 18%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam2b {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 88%;
+    right: 18%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam4b {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 88%;
+    right: 9%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam4a {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 80%;
+    right: 9%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam6 {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 76%;
+    right: 2%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+#cam7 {
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    margin: auto;
+    position: absolute;
+    top: 56%;
+    right: 1%;
+	height: 35px;
+    width: 60px;
+    border: 4px solid #fff;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.show {
+    opacity: 1;
+}
+
+
+
