@@ -110,25 +110,17 @@ h1 {
     width: 600px;
 }
 
-#power {
+.power {
     margin: 0 0 20px 20px;
-    position: absolute;
-    top: 0%;
-    left: 0%;
     width: 200px;
     color: #fff;
-    font-size: 24px;
 }
 
-#usage {
+.usage {
     margin: 20px 20px;
-    position: absolute;
-    top: 15%;
-    left: 0%;
     width: 200px;
     height: 32px;
     color: #fff;
-    font-size: 24px;
 }
 
 .left-door-switch {
@@ -138,12 +130,16 @@ h1 {
     width: 92px;
 }
 
-.left-door a {
-    position:absolute;
+.left-door-opened {
+    display: block;
     top: 0%;
-    height: 127px;
-    width: 92px;
-    background-image: url(/resources/img/left_door_open.png);
+    position: absolute;
+}
+
+.left-door-closed {
+    display: block;
+    top: 0%;
+    position: absolute;
 }
 
 .left-light a {
@@ -152,6 +148,12 @@ h1 {
     height: 120px;
     width: 92px;
     background-image: url(/resources/img/left_light_off.png);
+}
+
+.right-door {
+    position:absolute;
+    top: 0%;
+    right: 0;
 }
 
 .right-door-switch {
