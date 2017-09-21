@@ -1,9 +1,7 @@
-var alreadyAttacked = false;
-var bonnieRooms = [];
 var camPos = new Array();
 camPos[0]= {
     image01: new Image(),
-    src: "/resources/img/19a.gif"    
+    src: "/resources/img/19a.gif"
 };
 camPos[1]= {
     image02: new Image(),
@@ -45,156 +43,174 @@ camPos[10]= {
     image11: new Image(),
     src: "/resources/img/41.png"
 };
- 
-var hour = 0;
+
+var sounds = {
+    main: "resources/audio/Buzz_Fan_Florescent2.wav",
+    call: "resources/audio/voiceover1c.wav",
+
+}
+
+var seconds = 0;
+var hour = 1;
 var jumpReady = false;
 var leftDoor = false;
-var night = 0;
+var night = 1;
 var power = 100;
-var powerOutAttacked = false;
 var powerUsage = 1;
 var rightDoor = false;
-var runStage;
-var time = 0;
+var time = 1;
 var order;
 var rooms= [];
-    
-    
+
+init();
+
+function init() {
+
+}
+
+function updateTime() {
+    time++
+    console.log(time)
+//    console.log(time)
+}
+
+function startGameTime() {
+    var timer = setInterval(updateTime, 3000);
+}
+
 function playerWins() {
-        
+
 }
-    
-function fuzz() {
-        
-}
-    
+
 function westDoor() {
-        
+
 }
-    
+
 function eastLightDoor() {
-        
+
 }
 
 function cameraState() {
     if (location.pathname === '/camera.html') {
         return true; // toggle-camera
     } else {
-        return false; 
+        return false;
     }
 }
-    
+
 function bonnieScare() {
-        
+
 }
-    
+
 function bonnieAttackIfClosed() {
-        
+
+
 }
-    
-function bonnieConstantAttack() {
-        
-}
-    
+
 function disableBonnie() {
-        
+
 }
-    
+
 function disableButtons() {
-        
+    $('.left-door-switch').hide();
+    $('.right-door-switch').hide();
+    $('.control').hide();
+    $('.toggle-camera').hide();
 }
-    
-function death() {
-        
-}
-    
-function freddyAttackIfClosed() {
-        
-}
-    
-function freddyConstantAttack() {
-        
-}
-    
+
 function menu() {
+    hour = 0;
+    night = 0;
+    time = 0;
+    jumpReady = false;
     powerOutAttacked = false;
     alreadyAttacked = false;
     rightDoor = true;
     leftDoor = true;
+    location.replace('/index.html');
 }
-    
+
 function removeDoors() {
-        
+
 }
-    
+
+function powerOutAttacked() {
+    if (power === 0) {
+        return true
+    } else {
+        return false
+    }
+}
+
 function powerOutFreddy() {
-        
-} 
-    
+    if(powerOutAttacked() === true) {
+        disableButtons();
+        $('#main-screen').css('background-image', 'url()');
+        menu();
+    }
+}
+
 
 $('document').ready(function() {
     console.log('DOM is loaded...');
-    $('#start-game').on('click', function() {
-        
-    }),
-        
+    if (location.pathname === '/main.html') {
+        startGameTime();
+    }
+
+    $('.toggle-camera').click(function() {
+        console.log('Clicked');
+    })
+
     $('.left-light a').click(function() {
-        $('.left-light img').toggle();
+
     }),
-    
+
     $('#cam1a').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[0].src + ')');
+        $('.container').append('backgroundImage', 'url(' + camPos[0].src + ')');
     }),
-        
+
     $('#cam1b').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[1].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[1].src + ')');
+        $('.main-screen').css('z-index', 9999);
     }),
     $('#cam1c').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[2].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[2].src + ')');
     }),
     $('#cam2a').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[3].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[3].src + ')');
     }),
     $('#cam2b').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[4].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[4].src + ')');
     }),
     $('#cam3').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[5].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[5].src + ')');
     }),
     $('#cam4a').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[6].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[6].src + ')');
     }),
     $('#cam4b').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[7].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[7].src + ')');
     }),
     $('#cam5').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[8].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[8].src + ')');
     }),
     $('#cam6').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[9].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[9].src + ')');
     })
     $('#cam7').click(function() {
         console.log('clicked')
-        $('#camera-menu').css('backgroundImage', 'url(' + camPos[10].src + ')');
+        $('.main-screen').css('backgroundImage', 'url(' + camPos[10].src + ')');
     })
-    
+
+
 });
-
-    
-
-    
-        
-
-
-
-

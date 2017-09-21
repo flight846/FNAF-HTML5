@@ -4,26 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>One Night at Greddy's</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&subset=latin,greek" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
-    <div class="container" id="main-screen">
-      <img src="resources/img/126.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;">
-      <img src="resources/img/126.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat; display:none;">
-       
-        <audio id="menu-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop"></audio>
-        <audio id="call" src="resources/audio/voiceover1c.wav"></audio>
-        <div class="left-door-switch">
+    <!-- <audio id="game-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop"></audio>
+    <audio id="call" src="resources/audio/voiceover1c.wav"></audio> -->
+    <div class="container">
+
+        <!-- background -->
+        <div class="background">
+            <img class="main-screen" src="resources/img/126.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;">
+        </div>
+
+        <!-- Top Menu-->
+        <div class="top-menu">
+            <h2 class="show-hour">12 am</h2>
+            <h2 class="show-night">Night 1</h2>
+        </div>
+
+        <!-- Left Door Switch-->
+        <div class="left-door-switch show">
             <div class="left-door">
                 <a href="#"></a>
             </div>
             <div class="left-light">
-                <a href="#"><img src="resources/img/left_light_off.png"></a>
-                <a href="#"><img src="resources/img/left_light_on.png" style="display:none"></a>
+                <a href="#" class="left-light show"><img src="resources/img/left_light_off.png"></a>
+                <a href="#" class="left-light hide"><img src="resources/img/left_light_on.png"></a>
             </div>
-
         </div>
-        <div class="right-door-switch">
+
+        <!--  Right Door Switch-->
+        <div class="right-door-switch show">
             <div class="right-door">
                 <a href="#"></a>
             </div>
@@ -31,11 +43,50 @@
                 <a href="#"></a>
             </div>
         </div>
+<!--        Camera Menu-->
+        <div class="camera-menu hide">
+            <div id="row">
+                <img id="cameras" src="resources/img/145.png">
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam1a">CAM<br>1A</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam1b">CAM<br>1B</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam5">CAM<br>5</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam1c">CAM<br>1C</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam3">CAM<br>3</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam2a">CAM<br>2A</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam2b">CAM<br>2B</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam4b">CAM<br>4B</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam4a">CAM<br>4A</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam6">CAM<br>6</a>
+            </div>
+            <div class="cam-btn">
+                <a href="#" id="cam7">CAM<br>7</a>
+            </div>
+        </div>
         <div class="control">
             <h4 id="power">Power left:</h4>
-            <h4 id="usage">Usage:</h4> 
+            <h4 id="usage">Usage:</h4>
+            <a href="#"><img class="toggle-camera" src="resources/img/420.png"></a>
         </div>
-        <a href="camera.html"><img class="toggle-camera" src="resources/img/420.png"></a>
     </div>
     <script type="text/javascript" src="js/jquery-2.2.4.js"></script>
     <script type="text/javascript" src="js/scratch-js.js"></script>
