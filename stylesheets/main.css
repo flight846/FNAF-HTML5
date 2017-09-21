@@ -83,6 +83,14 @@ h1 {
     content: "> "
 }
 
+#spinning-fan {
+    position: absolute;
+    top: 42.2%;
+    left: 48.5%;
+    width: 9%;
+    height: 27.1%;
+}
+
 /*---------------------*/
 /*---- Main-screen ----*/
 /*---------------------*/
@@ -172,7 +180,7 @@ h1 {
 
 .top-menu {
     height: auto;
-    width: 10%;
+    width: 20%;
     margin-top: 10px;
     position: absolute;
     top: 0%;

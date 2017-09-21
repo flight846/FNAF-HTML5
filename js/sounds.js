@@ -4,7 +4,3 @@ $(document).ready(function() {
     $("#game-start").get(0).play();
     $("#call").get(0).play();
 });
-//    
-    
-    
-    

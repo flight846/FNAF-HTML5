@@ -8,15 +8,16 @@
     <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
-    <!-- <audio id="game-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop"></audio>
-    <audio id="call" src="resources/audio/voiceover1c.wav"></audio> -->
+    <audio id="game-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop"></audio>
+    <!-- <audio id="call" src="resources/audio/voiceover1c.wav"></audio> -->
     <div class="container">
 
         <!-- background -->
         <div class="background">
 
             <!-- <img class="main-screen transition" src="resources/img/transition_screen.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;"> -->
-            <img class="main-screen" src="resources/img/126.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;">
+            <img class="main-screen" src="resources/img/rooms/safe_room/safe_room_default.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;">
+            <img id="spinning-fan" src="resources/img/spinning_fan.gif">
         </div>
 
         <!-- Top Menu-->
@@ -26,8 +27,8 @@
         </div>
 
         <!-- Left Door Switch-->
-        <div class="left-door-switch show">
-            <div class="left-door">
+        <div class="left">
+            <div class="left-door-switch on">
                 <a href="#"></a>
             </div>
             <div class="left-light">
@@ -37,15 +38,17 @@
         </div>
 
         <!--  Right Door Switch-->
-        <div class="right-door-switch show">
-            <div class="right-door">
-                <a href="#"></a>
+        <div class="right">
+            <div class="right-door-switch on">
+                <a href="#" ></a>
             </div>
             <div class="right-light">
-                <a href="#"></a>
+                <a href="#" class="right-light show"><img src="resources/img/right_light_off.png"></a>
+                <a href="#" class="right-light hide"><img src="resources/img/right_light_on.png"></a>
             </div>
         </div>
-<!--        Camera Menu-->
+
+        <!-- Camera Menu-->
         <div class="camera-menu hide">
             <div id="row">
                 <img id="cameras" src="resources/img/145.png">
@@ -84,6 +87,8 @@
                 <a href="#" id="cam7">CAM<br>7</a>
             </div>
         </div>
+
+        <!-- control-menu -->
         <div class="control">
             <h4 id="power">Power left:</h4>
             <h4 id="usage">Usage:</h4>
