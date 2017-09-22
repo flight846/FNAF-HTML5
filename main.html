@@ -17,7 +17,7 @@
 
             <!-- <img class="main-screen transition" src="resources/img/transition_screen.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;"> -->
             <img class="main-screen" src="resources/img/rooms/safe_room/safe_room_default.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;">
-            <img id="spinning-fan" src="resources/img/spinning_fan.gif">
+            <img id="spinning-fan" src="resources/img/game/spinning_fan.gif">
         </div>
 
         <!-- Top Menu-->
@@ -28,77 +28,67 @@
 
         <!-- Left Door Switch-->
         <div class="left">
-            <div class="left-door-opened">
-                <img src="resources/img/left_door_opened.gif" alt="">
+            <div class="left-door-default">
+                <img src="resources/img/doors/left_door_open.png" alt="">
+            </div>
+            <div class="left-door-opened hide">
+                <img src="resources/img/doors/left_door_opened.gif" alt="">
             </div>
             <div class="left-door-closed hide">
-                <img src="resources/img/left_door_closed.gif" alt="">
+                <img src="resources/img/doors/left_door_closed.gif" alt="">
             </div>
-            <div class="left-door-switch on">
-                <a href="#"></a>
-            </div>
-            <div class="left-light">
-                <a href="#" class="left-light show"><img src="resources/img/left_light_off.png"></a>
-                <a href="#" class="left-light hide"><img src="resources/img/left_light_on.png"></a>
+            <div class="left-switch">
+                <img src="resources/img/rooms/left_switch_door_0_light_0.png" alt="" usemap="left-door-switch">
+                <map name="left-door-switch">
+                    <area target="" alt="door" title="door" href="javascript:;" coords="31,107,69,53" shape="rect">
+                    <area target="" alt="light" title="light" href="javascript:;" coords="70,187,31,134" shape="rect">
+                </map>
             </div>
         </div>
 
         <!--  Right Door Switch-->
         <div class="right">
-            <div class="right-door-switch on">
-                <a href="#" ></a>
+            <div class="right-door-default">
+                <img src="resources/img/doors/right_door_open.png" alt="">
             </div>
-            <div class="right-light">
-                <a href="#" class="right-light show"><img src="resources/img/right_light_off.png"></a>
-                <a href="#" class="right-light hide"><img src="resources/img/right_light_on.png"></a>
+            <div class="right-door-opened hide">
+                <img src="resources/img/doors/right_door_opened.gif" alt="">
+            </div>
+            <div class="right-door-closed hide">
+                <img src="resources/img/doors/right_door_closed.gif" alt="">
+            </div>
+            <div class="right-switch">
+                <img src="resources/img/rooms/right_switch_door_0_light_0.png" alt="" usemap="right-door-switch">
+                <map name="right-door-switch">
+                    <area target="" alt="door" title="door" href="javascript:;" coords="24,53,62,107" shape="rect">
+                    <area target="" alt="light" title="light" href="javascript:;" coords="23,133,63,187" shape="rect">
+                </map>
             </div>
         </div>
 
         <!-- Camera Menu-->
         <div class="camera-menu hide">
-            <div id="row">
-                <img id="cameras" src="resources/img/145.png">
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam1a">CAM<br>1A</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam1b">CAM<br>1B</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam5">CAM<br>5</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam1c">CAM<br>1C</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam3">CAM<br>3</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam2a">CAM<br>2A</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam2b">CAM<br>2B</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam4b">CAM<br>4B</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam4a">CAM<br>4A</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam6">CAM<br>6</a>
-            </div>
-            <div class="cam-btn">
-                <a href="#" id="cam7">CAM<br>7</a>
-            </div>
+            <img id="cameras" src="resources/img/game/camera_map.png">
+            <a href="#" id="cam1a">CAM<br>1A</a>
+            <a href="#" id="cam1b">CAM<br>1B</a>
+            <a href="#" id="cam5">CAM<br>5</a>
+            <a href="#" id="cam1c">CAM<br>1C</a>
+            <a href="#" id="cam3">CAM<br>3</a>
+            <a href="#" id="cam2a">CAM<br>2A</a>
+            <a href="#" id="cam2b">CAM<br>2B</a>
+            <a href="#" id="cam4b">CAM<br>4B</a>
+            <a href="#" id="cam4a">CAM<br>4A</a>
+            <a href="#" id="cam6">CAM<br>6</a>
+            <a href="#" id="cam7">CAM<br>7</a>
         </div>
 
         <!-- control-menu -->
         <div class="control">
-            <p class="power">Power left: <span id="power-counter">100%</span></p>
-            <p class="usage">Usage: <span id="usage-counter">100%</span></p>
-            <a href="#"><img class="toggle-camera" src="resources/img/420.png"></a>
+            <div class="control-usage">
+                <p class="power">Power left: <span id="power-counter">100%</span></p>
+                <p class="usage">Usage: <span id="usage-counter">100%</span></p>
+            </div>
+            <a href="#"><img id="toggle-camera" src="resources/img/game/camera_toggle.png"></a>
         </div>
     </div>
     <script type="text/javascript" src="js/jquery-2.2.4.js"></script>

@@ -30,6 +30,7 @@ aside a:link, a:visited {
 .container {
     height: 100vh;
     width: 100vw;
+    position: relative;
 }
 
 .static {
@@ -97,87 +98,85 @@ h1 {
 
 .control {
     position: absolute;
-    bottom: 0%;
     width: 100%;
-    height: 70px;
+    bottom: 0%;
+    left: 0;
 }
 
-.toggle-camera {
-    bottom: 0%;
-    position: absolute;
-    margin-left: 25%;
-    height: 60px;
+#toggle-camera {
+    height: auto;
     width: 600px;
+    float: left;
+    display: inline-block;
+    margin-left: 50px;
+}
+
+.control-usage {
+    width: 200px;
+    display: inline-block;
+    float: left;
 }
 
 .power {
-    margin: 0 0 20px 20px;
-    width: 200px;
+    width: 100%;
     color: #fff;
+    display: block;
+    margin-bottom: 15px;
 }
 
 .usage {
-    margin: 20px 20px;
-    width: 200px;
+    width: 100%;
     height: 32px;
     color: #fff;
+    display: block;
 }
 
-.left-door-switch {
+.left-switch {
     position: absolute;
     top: 50%;
     height: 247px;
     width: 92px;
 }
 
+.left-door-default {
+    top: 0%;
+    position: absolute;
+}
+
 .left-door-opened {
-    display: block;
     top: 0%;
     position: absolute;
 }
 
 .left-door-closed {
-    display: block;
     top: 0%;
     position: absolute;
 }
 
-.left-light a {
+.right-switch {
     position: absolute;
-	top: 50%;
-    height: 120px;
-    width: 92px;
-    background-image: url(/resources/img/left_light_off.png);
-}
-
-.right-door {
-    position:absolute;
-    top: 0%;
-    right: 0;
-}
-
-.right-door-switch {
     top: 50%;
-    right: 0%;
-    position: absolute;
+    right: 0;
     height: 247px;
     width: 92px;
 }
 
-.right-door a {
-    position:absolute;
-    top: 0%;
-    height: 127px;
-    width: 92px;
-    background-image: url(/resources/img/right_door_open.png);
+.right-door-default {
+    top: -14%;
+    right: 0;
+    position: absolute;
 }
 
-.right-light a {
+.right-door-opened {
+    top: 0%;
+    right:0;
     position: absolute;
-	top: 50%;
-    height: 120px;
-    width: 92px;
-    background-image: url(/resources/img/right_light_off.png);
+}
+
+.right-door-closed {
+    top: 0%;
+    right: 0;
+    position: absolute;
 }
 
 .top-menu {
@@ -207,20 +206,20 @@ h1 {
 .camera-menu {
     position: absolute;
     top: 0%;
-    left: 0%;
-    height: 100vh;
-    width: 100vw;
+    right: 0%;
+    height: 100%;
+    width: 50%;
     background-size: cover;
     background-repeat: no-repeat;
+    z-index: 2;
 }
 
 #cameras {
     position: absolute;
 	height: 60vh;
     width: 30vw;
-    top: 40%;
-    right: 0%;
-    float: right;
+    top: 30%;
+    right: 0;
 }
 
 #cam1a {
@@ -230,8 +229,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 42%;
-    right: 17%;
+    top: 32%;
+    right: 40%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -244,8 +243,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 51%;
-    right: 19%;
+    top: 42%;
+    right: 33%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -258,8 +257,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 54%;
-    right: 27%;
+    top: 45%;
+    right: 54%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -272,8 +271,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 63%;
-    right: 21%;
+    top: 53%;
+    right: 39%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -286,8 +285,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 78%;
-    right: 24%;
+    top: 68%;
+    right: 51%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -300,8 +299,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 80%;
-    right: 18%;
+    top: 73%;
+    right: 37%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -314,8 +313,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 88%;
-    right: 18%;
+    top: 80%;
+    right: 37%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -328,8 +327,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 88%;
-    right: 9%;
+    top: 80%;
+    right: 16%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -342,8 +341,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 80%;
-    right: 9%;
+    top: 73%;
+    right: 16%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -356,7 +355,7 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 76%;
+    top: 66%;
     right: 2%;
 	height: 35px;
     width: 60px;
@@ -370,17 +369,17 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 56%;
-    right: 1%;
+    top: 46%;
+    right: 0%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
 }
 
 .hide {
-    opacity: 0;
+    display: none;
 }
 
 .show {
-    opacity: 1;
+    display: block;
 }
