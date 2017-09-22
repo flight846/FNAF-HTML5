@@ -28,40 +28,28 @@
 
         <!-- Left Door Switch-->
         <div class="left">
-            <div class="left-door-default">
-                <img src="resources/img/doors/left_door_open.png" alt="">
-            </div>
-            <div class="left-door-opened hide">
-                <img src="resources/img/doors/left_door_opened.gif" alt="">
-            </div>
-            <div class="left-door-closed hide">
-                <img src="resources/img/doors/left_door_closed.gif" alt="">
+            <div class="left-door">
+                <img src="resources/img/doors/left_door_1.png" alt="">
             </div>
             <div class="left-switch">
                 <img src="resources/img/rooms/left_switch_door_0_light_0.png" alt="" usemap="left-door-switch">
                 <map name="left-door-switch">
-                    <area target="" alt="door" title="door" href="javascript:;" coords="31,107,69,53" shape="rect">
-                    <area target="" alt="light" title="light" href="javascript:;" coords="70,187,31,134" shape="rect">
+                    <area target="" alt="door" title="door" href="javascript:toggleLeftDoor();" coords="31,107,69,53" shape="rect">
+                    <area target="" alt="light" title="light" href="javascript:toggleLeftLight();" coords="70,187,31,134" shape="rect">
                 </map>
             </div>
         </div>
 
         <!--  Right Door Switch-->
         <div class="right">
-            <div class="right-door-default">
-                <img src="resources/img/doors/right_door_open.png" alt="">
-            </div>
-            <div class="right-door-opened hide">
-                <img src="resources/img/doors/right_door_opened.gif" alt="">
-            </div>
-            <div class="right-door-closed hide">
-                <img src="resources/img/doors/right_door_closed.gif" alt="">
+            <div class="right-door">
+                <img src="resources/img/doors/right_door_1.png" alt="">
             </div>
             <div class="right-switch">
                 <img src="resources/img/rooms/right_switch_door_0_light_0.png" alt="" usemap="right-door-switch">
                 <map name="right-door-switch">
-                    <area target="" alt="door" title="door" href="javascript:;" coords="24,53,62,107" shape="rect">
-                    <area target="" alt="light" title="light" href="javascript:;" coords="23,133,63,187" shape="rect">
+                    <area target="" alt="door" title="door" href="javascript:toggleRightDoor();" coords="24,53,62,107" shape="rect">
+                    <area target="" alt="light" title="light" href="javascript:toggleRightLight();" coords="23,133,63,187" shape="rect">
                 </map>
             </div>
         </div>

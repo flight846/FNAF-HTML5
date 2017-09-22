@@ -138,8 +138,8 @@ h1 {
     width: 92px;
 }
 
-.left-door-default {
-    top: 0%;
+.left-door {
+    top: -14%;
     position: absolute;
 }
 
@@ -161,7 +161,7 @@ h1 {
     width: 92px;
 }
 
-.right-door-default {
+.right-door {
     top: -14%;
     right: 0;
     position: absolute;

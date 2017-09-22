@@ -53,19 +53,29 @@ var sounds = {
 var seconds = 0;
 var hour = 1;
 var jumpReady = false;
-var leftDoor = false;
+var leftDoor = 0;
+var leftLight = 0;
 var night = 1;
 var power = 100;
 var powerUsage = 1;
-var rightDoor = false;
+var rightDoor = 0;
+var rightLight = 0;
 var time = 1;
 var order;
 var rooms= [];
 
-init();
+// init();
 
 function init() {
-
+    hour = 0;
+    night = 0;
+    time = 0;
+    jumpReady = false;
+    powerOutAttacked = false;
+    alreadyAttacked = false;
+    rightDoor = true;
+    leftDoor = true;
+    location.replace('/index.html');
 }
 
 function updateTime() {
@@ -82,12 +92,28 @@ function playerWins() {
 
 }
 
-function westDoor() {
-
+function toggleLeftDoor() {
+    leftDoor?leftDoor = 0:leftDoor = 1;
+    $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
+    $('.left-door > img').attr('src', 'resources/img/doors/left_door_'+leftDoor+'.gif');
 }
 
-function eastLightDoor() {
+function toggleRightDoor() {
+    rightDoor?rightDoor = 0:rightDoor = 1;
+    $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
+    $('.right-door > img').attr('src', 'resources/img/doors/right_door_'+rightDoor+'.gif');
+}
 
+function toggleLeftLight() {
+    leftLight?leftLight = 0:leftLight = 1;
+    console.log(leftLight);
+    $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png')
+}
+
+function toggleRightLight() {
+    rightLight?rightLight = 0:rightLight = 1;
+    console.log(rightLight);
+    $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png')
 }
 
 function cameraState() {
@@ -111,24 +137,12 @@ function disableBonnie() {
 
 }
 
-function disableButtons() {
-    $('.left-door-switch').hide();
-    $('.right-door-switch').hide();
-    $('.control').hide();
-    $('.toggle-camera').hide();
-}
-
-function menu() {
-    hour = 0;
-    night = 0;
-    time = 0;
-    jumpReady = false;
-    powerOutAttacked = false;
-    alreadyAttacked = false;
-    rightDoor = true;
-    leftDoor = true;
-    location.replace('/index.html');
-}
+// function disableButtons() {
+//     $('.left-door-switch').hide();
+//     $('.right-door-switch').hide();
+//     $('.control').hide();
+//     $('.toggle-camera').hide();
+// }
 
 function removeDoors() {
 
@@ -157,7 +171,7 @@ $('document').ready(function() {
         startGameTime();
     }
 
-    $('.toggle-camera').click(function() {
+    $('#toggle-camera').click(function() {
         console.log('Clicked');
     })
 
