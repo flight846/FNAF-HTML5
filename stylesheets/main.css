@@ -34,7 +34,7 @@ aside a:link, a:visited {
 }
 
 .static {
-    background-image: url(/resources/img/static.gif);
+    background-image: url(/resources/img/game/static.gif);
     opacity: 0.4;
     z-index: 2;
     position: absolute;
@@ -48,7 +48,7 @@ aside a:link, a:visited {
     height: 100vh;
     width: 100vw;
     background-size: cover;
-    background-image:url(/resources/img/main.gif);
+    background-image:url(/resources/img/game/main.gif);
     background-repeat: no-repeat;
     position: relative;
 }
@@ -108,7 +108,7 @@ h1 {
     width: 600px;
     float: left;
     display: inline-block;
-    margin-left: 50px;
+    margin: 19px 0px 0px 50px;
 }
 
 .control-usage {
@@ -186,6 +186,7 @@ h1 {
     position: absolute;
     top: 0%;
     right: 0%;
+    z-index: 2;
 }
 
 .show-hour {
@@ -194,6 +195,7 @@ h1 {
 
 .show-night {
 	color: #fff;
+    margin-top: 10px;
 }
 
 
