@@ -108,14 +108,14 @@ function toggleLeftLight() {
     leftLight?leftLight = 0:leftLight = 1;
     console.log(leftLight);
     $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
-    $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'.png');
+    $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
 }
 
 function toggleRightLight() {
     rightLight?rightLight = 0:rightLight = 1;
     console.log(rightLight);
     $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
-    $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_right_light_'+rightLight+'.png');
+    $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
 }
 
 function cameraState() {
