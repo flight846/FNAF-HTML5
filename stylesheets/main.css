@@ -139,8 +139,15 @@ h1 {
 }
 
 .left-door {
-    top: -14%;
+    top: 0%;
+    left: 5%;
     position: absolute;
+    height: 100%;
+}
+
+.left-door img {
+    width: 68%;
+    height: 100%;
 }
 
 .left-door-opened {
@@ -162,9 +169,15 @@ h1 {
 }
 
 .right-door {
-    top: -14%;
-    right: 0;
+    top: 0%;
+    right: 5%;
     position: absolute;
+    height: 100%;
+}
+
+.right-door img {
+    width: 68%;
+    height: 100%;
 }
 
 .right-door-opened {
