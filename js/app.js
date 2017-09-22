@@ -50,32 +50,30 @@ var sounds = {
 
 }
 
-var seconds = 0;
-var hour = 1;
+var hour = 0;
 var jumpReady = false;
 var leftDoor = 0;
 var leftLight = 0;
 var night = 1;
 var power = 100;
-var powerUsage = 1;
+var powerUsage = 1; // value from 1-5
+var decrementPower = 15000 / powerUsage;
 var rightDoor = 0;
 var rightLight = 0;
 var time = 1;
 var order;
 var rooms= [];
 
-// init();
-
+// reset
 function init() {
-    hour = 0;
-    night = 0;
+    night = 1;
     time = 0;
     jumpReady = false;
     powerOutAttacked = false;
     alreadyAttacked = false;
     rightDoor = true;
     leftDoor = true;
-    location.replace('/index.html');
+    // location.replace('/index.html');
 }
 
 function updateTime() {
@@ -84,8 +82,33 @@ function updateTime() {
 //    console.log(time)
 }
 
-function startGameTime() {
+function updatePower() {
+    power--
+    $('#power-counter').html(power)
+}
+
+function updateHour() {
+    hour++
+    console.log(time)
+    $('#hour-counter').html(hour)
+}
+
+function updateGameTime() {
     var timer = setInterval(updateTime, 3000);
+    var timer2 = setInterval(updatePower, decrementPower); // decrement power every 15 seconds (default)
+    var timer3 = setInterval(updateHour, 120000); // 1 game hour == 2 mins
+}
+
+function moveBonny() {
+    
+}
+
+function moveChika() {
+    
+}
+
+function moveFreddy() {
+    
 }
 
 function playerWins() {
@@ -170,7 +193,8 @@ function powerOutFreddy() {
 $('document').ready(function() {
     console.log('DOM is loaded...');
     if (location.pathname === '/main.html') {
-        startGameTime();
+        init();
+        updateGameTime();
     }
 
     $('#toggle-camera').click(function() {

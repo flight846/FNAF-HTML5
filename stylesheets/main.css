@@ -108,11 +108,11 @@ h1 {
     width: 600px;
     float: left;
     display: inline-block;
-    margin: 19px 0px 0px 22%;
+    margin: 19px 0px 0px 15%;
 }
 
 .control-usage {
-    width: 200px;
+    width: 300px;
     display: inline-block;
     float: left;
 }
