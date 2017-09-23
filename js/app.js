@@ -50,7 +50,9 @@ function updateGameTime() {
 }
 
 function updatePowerUsage() {
-    $('.usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
+    console.log(powerUsage);
+    $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
+    decrementPower = decrementPower / powerUsage;
 }
 
 function moveBonny() {
@@ -76,6 +78,7 @@ function muteCall() {
 
 function toggleLeftDoor() {
     leftDoor?leftDoor = 0:leftDoor = 1;
+    powerUsage = powerUsage + leftDoor;
     $(".door-on").get(0).play();
     $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
     $('.left-door > img').attr('src', 'resources/img/doors/left_door_'+leftDoor+'.gif');
@@ -84,6 +87,7 @@ function toggleLeftDoor() {
 
 function toggleRightDoor() {
     rightDoor?rightDoor = 0:rightDoor = 1;
+    powerUsage = powerUsage + rightDoor;
     $(".door-on").get(0).play();
     $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
     $('.right-door > img').attr('src', 'resources/img/doors/right_door_'+rightDoor+'.gif');
