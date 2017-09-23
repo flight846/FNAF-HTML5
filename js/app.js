@@ -54,12 +54,13 @@ var hour = 0;
 var jumpReady = false;
 var leftDoor = 0;
 var leftLight = 0;
-var night = 1;
-var power = 100;
-var powerUsage = 1; // value from 1-5
-var decrementPower = 15000 / powerUsage;
 var rightDoor = 0;
 var rightLight = 0;
+var cameraMode = 0;
+var night = 1;
+var power = 100;
+var powerUsage = 1;
+var decrementPower = 15000 / powerUsage;
 var time = 1;
 var order;
 var rooms= [];
@@ -71,14 +72,14 @@ function init() {
     jumpReady = false;
     powerOutAttacked = false;
     alreadyAttacked = false;
-    rightDoor = true;
-    leftDoor = true;
+    rightDoor = 0;
+    leftDoor = 0;
     // location.replace('/index.html');
 }
 
 function updateTime() {
     time++
-    console.log(time)
+    //console.log(time)
 //    console.log(time)
 }
 
@@ -99,16 +100,20 @@ function updateGameTime() {
     var timer3 = setInterval(updateHour, 120000); // 1 game hour == 2 mins
 }
 
+function updatePowerUsage() {
+    $('.usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
+}
+
 function moveBonny() {
-    
+
 }
 
 function moveChika() {
-    
+
 }
 
 function moveFreddy() {
-    
+
 }
 
 function playerWins() {
@@ -119,34 +124,53 @@ function toggleLeftDoor() {
     leftDoor?leftDoor = 0:leftDoor = 1;
     $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
     $('.left-door > img').attr('src', 'resources/img/doors/left_door_'+leftDoor+'.gif');
+    updatePowerUsage()
 }
 
 function toggleRightDoor() {
     rightDoor?rightDoor = 0:rightDoor = 1;
     $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
     $('.right-door > img').attr('src', 'resources/img/doors/right_door_'+rightDoor+'.gif');
+    updatePowerUsage()
 }
 
 function toggleLeftLight() {
-    leftLight?leftLight = 0:leftLight = 1;
-    console.log(leftLight);
-    $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
-    $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
+    $('#left-light-toggle').mousedown(function() {
+        leftLight?leftLight = 0:leftLight = 1;
+        $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
+        $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
+        updatePowerUsage()
+    })
+    $('#left-light-toggle').mouseup(function() {
+        leftLight?leftLight = 0:leftLight = 1;
+        $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
+        $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
+        updatePowerUsage()
+    })
 }
 
 function toggleRightLight() {
-    rightLight?rightLight = 0:rightLight = 1;
-    console.log(rightLight);
-    $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
-    $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
+    $('#right-light-toggle').mousedown(function() {
+        rightLight?rightLight = 0:rightLight = 1;
+        $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
+        $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
+        updatePowerUsage()
+    })
+    $('#right-light-toggle').mouseup(function() {
+        rightLight?rightLight = 0:rightLight = 1;
+        $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
+        $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
+        updatePowerUsage()
+    })
 }
 
 function cameraState() {
-    if (location.pathname === '/camera.html') {
-        return true; // toggle-camera
-    } else {
-        return false;
-    }
+    // if (location.pathname === '/camera.html') {
+    //     return true; // toggle-camera
+    // } else {
+    //     return false;
+    // }
+
 }
 
 function bonnieScare() {
@@ -195,6 +219,8 @@ $('document').ready(function() {
     if (location.pathname === '/main.html') {
         init();
         updateGameTime();
+        toggleLeftLight();
+        toggleRightLight();
     }
 
     $('#toggle-camera').click(function() {
