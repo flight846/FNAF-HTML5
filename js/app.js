@@ -121,6 +121,11 @@ function playerWins() {
 
 }
 
+function muteCall() {
+    $("#call").get(0).pause();
+    $('.mute-call').css('display', 'none');
+}
+
 function toggleLeftDoor() {
     leftDoor?leftDoor = 0:leftDoor = 1;
     $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
@@ -222,6 +227,12 @@ $('document').ready(function() {
         updateGameTime();
         toggleLeftLight();
         toggleRightLight();
+        $("#game-start").get(0).play();
+
+        setTimeout(function() {
+            $("#call").get(0).play();
+            $('.mute-call').fadeIn();
+        }, 5000);
 
         $('#toggle-camera').click(function() {
             cameraMode?cameraMode = 0:cameraMode = 1;
@@ -235,8 +246,13 @@ $('document').ready(function() {
 
         setTimeout(function() {
             $('.transition').addClass('animate-out');
-            $('.container:not(#start-screen)').css('opacity', '1');
+
         }, 2000);
+
+        setTimeout(function() {
+            $('.container:not(#start-screen)').css('opacity', '1');
+            $('.transition').css('display', 'none');
+        }, 3000);
 
         $('#cam1a').click(function() {
             console.log('clicked')

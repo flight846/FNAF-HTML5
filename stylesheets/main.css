@@ -81,6 +81,15 @@ aside a:link, a:visited {
     right: 0;
 }
 
+.mute-call {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: none;
+    margin: 40px;
+}
+
 #start-screen {
     height: 100vh;
     width: 100vw;
