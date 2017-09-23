@@ -41,13 +41,13 @@ aside a:link, a:visited {
 }
 
 .animate-in {
-    -webkit-animation: fadeIn 1.5s ease-in;
-    animation: fadeIn 1.5s ease-in;
+    -webkit-animation: fadeIn 1.9s ease-in;
+    animation: fadeIn 1.9s ease-in;
 }
 
 .animate-out {
-    -webkit-transition: opacity 1.5s;
-    transition: opacity 1.5s;
+    -webkit-transition: opacity 1.9s;
+    transition: opacity 1.9s;
     opacity: 0;
 }
 

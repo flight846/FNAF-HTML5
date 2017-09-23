@@ -89,6 +89,11 @@
     <script type="text/javascript" src="js/jquery-2.2.4.js"></script>
     <script type="text/javascript" src="js/scratch-js.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/sounds.js"></script>
+    <script>
+        setTimeout(function() {
+            $("#call").get(0).play();
+            $('.mute-call').fadeIn();
+        }, 5000);
+    </script>
 </body>
 </html>

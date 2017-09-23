@@ -229,11 +229,6 @@ $('document').ready(function() {
         toggleRightLight();
         $("#game-start").get(0).play();
 
-        setTimeout(function() {
-            $("#call").get(0).play();
-            $('.mute-call').fadeIn();
-        }, 5000);
-
         $('#toggle-camera').click(function() {
             cameraMode?cameraMode = 0:cameraMode = 1;
             $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif');
@@ -246,13 +241,12 @@ $('document').ready(function() {
 
         setTimeout(function() {
             $('.transition').addClass('animate-out');
-
-        }, 2000);
+        }, 2900);
 
         setTimeout(function() {
             $('.container:not(#start-screen)').css('opacity', '1');
             $('.transition').css('display', 'none');
-        }, 3000);
+        }, 3900);
 
         $('#cam1a').click(function() {
             console.log('clicked')
