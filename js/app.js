@@ -1,7 +1,7 @@
 var camPos = new Array();
 camPos[0]= {
     image01: new Image(),
-    src: "resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png"
+    src: "resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png",
 };
 camPos[1]= {
     image02: new Image(),
@@ -128,6 +128,7 @@ function muteCall() {
 
 function toggleLeftDoor() {
     leftDoor?leftDoor = 0:leftDoor = 1;
+    $(".door-on").get(0).play();
     $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
     $('.left-door > img').attr('src', 'resources/img/doors/left_door_'+leftDoor+'.gif');
     updatePowerUsage()
@@ -135,6 +136,7 @@ function toggleLeftDoor() {
 
 function toggleRightDoor() {
     rightDoor?rightDoor = 0:rightDoor = 1;
+    $(".door-on").get(0).play();
     $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
     $('.right-door > img').attr('src', 'resources/img/doors/right_door_'+rightDoor+'.gif');
     updatePowerUsage()
@@ -143,12 +145,14 @@ function toggleRightDoor() {
 function toggleLeftLight() {
     $('#left-light-toggle').mousedown(function() {
         leftLight?leftLight = 0:leftLight = 1;
+        $(".light-on").get(0).play();
         $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
         $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
         updatePowerUsage()
     })
     $('#left-light-toggle').mouseup(function() {
         leftLight?leftLight = 0:leftLight = 1;
+        $(".light-on").get(0).pause();
         $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
         $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
         updatePowerUsage()
@@ -158,12 +162,14 @@ function toggleLeftLight() {
 function toggleRightLight() {
     $('#right-light-toggle').mousedown(function() {
         rightLight?rightLight = 0:rightLight = 1;
+        $(".light-on").get(0).play();
         $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
         $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
         updatePowerUsage()
     })
     $('#right-light-toggle').mouseup(function() {
         rightLight?rightLight = 0:rightLight = 1;
+        $(".light-on").get(0).pause();
         $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
         $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
         updatePowerUsage()
@@ -231,6 +237,7 @@ $('document').ready(function() {
 
         $('#toggle-camera').click(function() {
             cameraMode?cameraMode = 0:cameraMode = 1;
+            $('.camera-toggle').get(0).play();
             $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif');
             setTimeout(function() {
                 $('.camera-menu').toggleClass('show');
@@ -249,18 +256,17 @@ $('document').ready(function() {
         }, 3900);
 
         $('#cam1a').click(function() {
-            console.log('clicked')
-            $('.container').append('backgroundImage', 'url(' + camPos[0].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png');
+            $('.camera-cycle').get(0).play();
         }),
 
         $('#cam1b').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[1].src + ')');
-            $('.main-screen').css('z-index', 9999);
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/1b_dining_area/1b_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         }),
         $('#cam1c').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[2].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/1c_pirate_cove/1c_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         }),
         $('#cam2a').click(function() {
             console.log('clicked')
@@ -283,8 +289,8 @@ $('document').ready(function() {
             $('.main-screen').css('backgroundImage', 'url(' + camPos[7].src + ')');
         }),
         $('#cam5').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[8].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/5_backstage/5_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         }),
         $('#cam6').click(function() {
             console.log('clicked')

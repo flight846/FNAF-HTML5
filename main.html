@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
-    <audio id="game-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop"></audio>
-    <audio id="call" src="resources/audio/voiceover1c.wav"></audio>
+    <audio preload="auto" id="game-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop"></audio>
+    <audio preload="auto" id="call" src="resources/audio/voiceover1c.wav"></audio>
 
     <div class="transition animate-in"></div>
 
@@ -41,6 +41,8 @@
                     <area target="" alt="door" title="door" href="javascript:toggleLeftDoor();" coords="31,107,69,53" shape="rect">
                     <area target="" id="left-light-toggle" alt="light" title="light" href="javascript:;" coords="70,187,31,134" shape="rect">
                 </map>
+                <audio preload="auto" class="light-on" src="resources/audio/BallastHumMedium2.wav"></audio>
+                <audio preload="auto" class="door-on" src="resources/audio/SFXBible_12478.wav"></audio>
             </div>
         </div>
 
@@ -55,6 +57,8 @@
                     <area target="" alt="door" title="door" href="javascript:toggleRightDoor();" coords="24,53,62,107" shape="rect">
                     <area target="" id="right-light-toggle" alt="light" title="light" href="javascript:;" coords="23,133,63,187" shape="rect">
                 </map>
+                <audio preload="auto" class="light-on" src="resources/audio/BallastHumMedium2.wav"></audio>
+                <audio preload="auto" class="door-on" src="resources/audio/SFXBible_12478.wav"></audio>
             </div>
         </div>
 
@@ -64,17 +68,17 @@
             <div id="camera-bg2"><img src="" alt=""></div>
             <div id="camera-bg3"><img src="resources/img/cams/camera_screen.png" alt=""></div>
             <img id="cameras" src="resources/img/game/camera_map.png">
-            <a href="#" id="cam1a">CAM<br>1A</a>
-            <a href="#" id="cam1b">CAM<br>1B</a>
-            <a href="#" id="cam5">CAM<br>5</a>
-            <a href="#" id="cam1c">CAM<br>1C</a>
-            <a href="#" id="cam3">CAM<br>3</a>
-            <a href="#" id="cam2a">CAM<br>2A</a>
-            <a href="#" id="cam2b">CAM<br>2B</a>
-            <a href="#" id="cam4b">CAM<br>4B</a>
-            <a href="#" id="cam4a">CAM<br>4A</a>
-            <a href="#" id="cam6">CAM<br>6</a>
-            <a href="#" id="cam7">CAM<br>7</a>
+            <a href="#" id="cam1a">CAM<br>1A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam1b">CAM<br>1B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam5">CAM<br>5<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam1c">CAM<br>1C<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam3">CAM<br>3<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam2a">CAM<br>2A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam2b">CAM<br>2B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam4b">CAM<br>4B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam4a">CAM<br>4A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam6">CAM<br>6<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+            <a href="#" id="cam7">CAM<br>7<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
         </div>
 
         <!-- control-menu -->
@@ -83,7 +87,7 @@
                 <p class="power">Power left: <span id="power-counter">100</span>%</p>
                 <p class="usage">Usage: <span id="usage-counter"><img src="resources/img/game/batt_usage_1.png" alt=""></span></p>
             </div>
-            <a href="#"><img id="toggle-camera" src="resources/img/game/camera_toggle.png"></a>
+            <a href="#"><img id="toggle-camera" src="resources/img/game/camera_toggle.png"><audio preload="auto" class="camera-toggle" src="resources/audio/CAMERA_VIDEO_LOA_60105303.wav"></audio></a>
         </div>
     </div>
     <script type="text/javascript" src="js/jquery-2.2.4.js"></script>
