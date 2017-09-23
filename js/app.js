@@ -64,6 +64,7 @@ var decrementPower = 15000 / powerUsage;
 var time = 1;
 var order;
 var rooms= [];
+var showStage = [1, 1, 1];
 
 // reset
 function init() {
@@ -224,12 +225,14 @@ $('document').ready(function() {
     }
 
     $('#toggle-camera').click(function() {
-        console.log('Clicked');
+        cameraMode?cameraMode = 0:cameraMode = 1;
+        $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif');
+        setTimeout(function() {
+            $('.camera-menu').toggleClass('show');
+            // $('#camera-bg2 img').css('opacity', 0);
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png');
+        }, 600);
     })
-
-    $('.left-light a').click(function() {
-
-    }),
 
     $('#cam1a').click(function() {
         console.log('clicked')

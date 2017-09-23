@@ -98,9 +98,9 @@ h1 {
 
 .control {
     position: absolute;
-    width: 100%;
-    bottom: 0%;
-    left: 0;
+    width: 97%;
+    bottom: 3%;
+    left: 3%;
     z-index: 99;
 }
 
@@ -109,7 +109,7 @@ h1 {
     width: 600px;
     float: left;
     display: inline-block;
-    margin: 19px 0px 0px 15%;
+    margin: 19px 0px 0px 10%;
 }
 
 .control-usage {
@@ -165,7 +165,7 @@ h1 {
 .right-switch {
     position: absolute;
     top: 50%;
-    right: 1%;
+    right: 0%;
     height: 247px;
     width: 92px;
 }
@@ -196,12 +196,11 @@ h1 {
 
 .top-menu {
     height: auto;
-    width: 20%;
-    margin-top: 10px;
+    margin: 0 45px;
     position: absolute;
-    top: 0%;
+    top: 3%;
     right: 0%;
-    z-index: 2;
+    z-index: 999;
 }
 
 .show-hour {
@@ -220,12 +219,12 @@ h1 {
 /*------ Camera -------*/
 /*---------------------*/
 
-.camera-menu {
+.camera-menu, #camera-bg1 > img, #camera-bg2 > img, #camera-bg3 > img {
     position: absolute;
     top: 0%;
     right: 0%;
     height: 100%;
-    width: 50%;
+    width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 2;
@@ -236,7 +235,12 @@ h1 {
 	height: 60vh;
     width: 30vw;
     top: 30%;
-    right: 0;
+    right: 4%;
+    z-index: 2;
+}
+
+.camera-menu a {
+    z-index: 999;
 }
 
 #cam1a {
@@ -246,8 +250,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 32%;
-    right: 40%;
+    top: 34%;
+    right: 23%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -261,7 +265,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 42%;
-    right: 33%;
+    right: 23%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -274,8 +278,8 @@ h1 {
     font-weight: 700;
     margin: auto;
     position: absolute;
-    top: 45%;
-    right: 54%;
+    top: 47%;
+    right: 31%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -289,7 +293,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 53%;
-    right: 39%;
+    right: 26%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -303,7 +307,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 68%;
-    right: 51%;
+    right: 28%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -317,7 +321,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 73%;
-    right: 37%;
+    right: 23%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -331,7 +335,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 80%;
-    right: 37%;
+    right: 23%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -345,7 +349,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 80%;
-    right: 16%;
+    right: 14%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -359,7 +363,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 73%;
-    right: 16%;
+    right: 14%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -373,7 +377,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 66%;
-    right: 2%;
+    right: 5%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
@@ -387,7 +391,7 @@ h1 {
     margin: auto;
     position: absolute;
     top: 46%;
-    right: 0%;
+    right: 6%;
 	height: 35px;
     width: 60px;
     border: 4px solid #fff;
