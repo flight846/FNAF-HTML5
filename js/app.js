@@ -226,7 +226,7 @@ $('document').ready(function() {
             $('.camera-cycle').get(0).play();
         }),
         $('#cam3').click(function() {
-            $('#camera-bg1 img').attr('src', 'resources/img/rooms/3_supply_room/3_b0_c0_f0.png');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/3_supply_closet/3_b0_c0_f0.png');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam4a').click(function() {
