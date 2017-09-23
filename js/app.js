@@ -1,7 +1,7 @@
 var camPos = new Array();
 camPos[0]= {
     image01: new Image(),
-    src: "/resources/img/19a.gif"
+    src: "resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png"
 };
 camPos[1]= {
     image02: new Image(),
@@ -222,64 +222,67 @@ $('document').ready(function() {
         updateGameTime();
         toggleLeftLight();
         toggleRightLight();
-    }
 
-    $('#toggle-camera').click(function() {
-        cameraMode?cameraMode = 0:cameraMode = 1;
-        $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif');
+        $('#toggle-camera').click(function() {
+            cameraMode?cameraMode = 0:cameraMode = 1;
+            $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif');
+            setTimeout(function() {
+                $('.camera-menu').toggleClass('show');
+                // $('#camera-bg2 img').css('opacity', 0);
+                $('#camera-bg1 img').attr('src', 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png');
+            }, 600);
+        })
+
         setTimeout(function() {
-            $('.camera-menu').toggleClass('show');
-            // $('#camera-bg2 img').css('opacity', 0);
-            $('#camera-bg1 img').attr('src', 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png');
-        }, 600);
-    })
+            $('.transition').addClass('animate-out');
+            $('.container:not(#start-screen)').css('opacity', '1');
+        }, 2000);
 
-    $('#cam1a').click(function() {
-        console.log('clicked')
-        $('.container').append('backgroundImage', 'url(' + camPos[0].src + ')');
-    }),
+        $('#cam1a').click(function() {
+            console.log('clicked')
+            $('.container').append('backgroundImage', 'url(' + camPos[0].src + ')');
+        }),
 
-    $('#cam1b').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[1].src + ')');
-        $('.main-screen').css('z-index', 9999);
-    }),
-    $('#cam1c').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[2].src + ')');
-    }),
-    $('#cam2a').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[3].src + ')');
-    }),
-    $('#cam2b').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[4].src + ')');
-    }),
-    $('#cam3').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[5].src + ')');
-    }),
-    $('#cam4a').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[6].src + ')');
-    }),
-    $('#cam4b').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[7].src + ')');
-    }),
-    $('#cam5').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[8].src + ')');
-    }),
-    $('#cam6').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[9].src + ')');
-    })
-    $('#cam7').click(function() {
-        console.log('clicked')
-        $('.main-screen').css('backgroundImage', 'url(' + camPos[10].src + ')');
-    })
-
-
+        $('#cam1b').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[1].src + ')');
+            $('.main-screen').css('z-index', 9999);
+        }),
+        $('#cam1c').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[2].src + ')');
+        }),
+        $('#cam2a').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[3].src + ')');
+        }),
+        $('#cam2b').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[4].src + ')');
+        }),
+        $('#cam3').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[5].src + ')');
+        }),
+        $('#cam4a').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[6].src + ')');
+        }),
+        $('#cam4b').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[7].src + ')');
+        }),
+        $('#cam5').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[8].src + ')');
+        }),
+        $('#cam6').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[9].src + ')');
+        })
+        $('#cam7').click(function() {
+            console.log('clicked')
+            $('.main-screen').css('backgroundImage', 'url(' + camPos[10].src + ')');
+        })
+    }
 });

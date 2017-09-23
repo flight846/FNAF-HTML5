@@ -15,6 +15,7 @@ aside {
     position: relative;
     width: 50%;
     height: 100%;
+    opacity: 1;
 }
 
 aside h1 {
@@ -27,10 +28,46 @@ aside a:link, a:visited {
     color: inherit;
 }
 
+.transition {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top:0;
+    left:0;
+    background-image: url(/resources/img/game/transition_screen.png);
+    z-index: 9999;
+}
+
+.animate-in {
+    -webkit-animation: fadeIn 1.5s ease-in;
+    animation: fadeIn 1.5s ease-in;
+}
+
+.animate-out {
+    -webkit-transition: opacity 1.5s;
+    transition: opacity 1.5s;
+    opacity: 0;
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 .container {
     height: 100vh;
     width: 100vw;
     position: relative;
+}
+
+.container:not(#start-screen) {
+    opacity: 0;
 }
 
 .static {
