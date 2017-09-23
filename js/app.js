@@ -1,55 +1,3 @@
-var camPos = new Array();
-camPos[0]= {
-    image01: new Image(),
-    src: "resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png",
-};
-camPos[1]= {
-    image02: new Image(),
-    src: "/resources/img/48.png"
-};
-camPos[2]= {
-    image03: new Image(),
-    src: "/resources/img/66.png"
-};
-camPos[3]= {
-    image04: new Image(),
-    src: "/resources/img/43.gif"
-};
-camPos[4]= {
-    image05: new Image(),
-    src: "/resources/img/0.png"
-};
-camPos[5]= {
-    image06: new Image(),
-    src: "/resources/img/62.png"
-};
-camPos[6]= {
-    image07: new Image(),
-    src: "/resources/img/67.png"
-};
-camPos[7]= {
-    image08: new Image(),
-    src: "/resources/img/49.png"
-};
-camPos[8]= {
-    image09: new Image(),
-    src: "/resources/img/354.png"
-};
-camPos[9]= {
-    image10: new Image(),
-    src: "/resources/img/42_background.png"
-};
-camPos[10]= {
-    image11: new Image(),
-    src: "/resources/img/41.png"
-};
-
-var sounds = {
-    main: "resources/audio/Buzz_Fan_Florescent2.wav",
-    call: "resources/audio/voiceover1c.wav",
-
-}
-
 var hour = 0;
 var jumpReady = false;
 var leftDoor = 0;
@@ -234,6 +182,7 @@ $('document').ready(function() {
         toggleLeftLight();
         toggleRightLight();
         $("#game-start").get(0).play();
+        $("#ambience2").get(0).play();
 
         $('#toggle-camera').click(function() {
             cameraMode?cameraMode = 0:cameraMode = 1;
@@ -269,36 +218,36 @@ $('document').ready(function() {
             $('.camera-cycle').get(0).play();
         }),
         $('#cam2a').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[3].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/2a_west_hall/2a_b0_c0_f0.gif');
+            $('.camera-cycle').get(0).play();
         }),
         $('#cam2b').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[4].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/2b_west_hall_corner/2b_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         }),
         $('#cam3').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[5].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/3_supply_room/3_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         }),
         $('#cam4a').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[6].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/4a_east_hall/4a_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         }),
         $('#cam4b').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[7].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/4b_east_hall_corner/4b_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         }),
         $('#cam5').click(function() {
             $('#camera-bg1 img').attr('src', 'resources/img/rooms/5_backstage/5_b0_c0_f0.png');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam6').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[9].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/6_kitchen/6_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         })
         $('#cam7').click(function() {
-            console.log('clicked')
-            $('.main-screen').css('backgroundImage', 'url(' + camPos[10].src + ')');
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/7_restroom/7_b0_c0_f0.png');
+            $('.camera-cycle').get(0).play();
         })
     }
 });

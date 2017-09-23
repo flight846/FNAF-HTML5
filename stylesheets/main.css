@@ -70,10 +70,14 @@ aside a:link, a:visited {
     opacity: 0;
 }
 
+.camera-menu .static {
+    opacity: 0.3;
+}
+
 .static {
     background-image: url(/resources/img/game/static.gif);
     opacity: 0.4;
-    z-index: 2;
+    z-index: 3;
     position: absolute;
     top: 0;
     left: 0;
