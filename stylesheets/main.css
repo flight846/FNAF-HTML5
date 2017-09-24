@@ -293,6 +293,26 @@ h1 {
     z-index: 999;
 }
 
+#camera-record > img {
+    position: absolute;
+    top: 4%;
+    left: 3%;
+    z-index: 3;
+    animation: blink-animation 1s steps(2, start) infinite;
+    -webkit-animation: blink-animation 1s steps(2, start) infinite;
+}
+
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
 #cam1a {
     text-align: center;
     background-color: #555;
