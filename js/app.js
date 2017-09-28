@@ -1,3 +1,4 @@
+var time = 0;
 var hour = 0;
 var jumpReady = false;
 var leftDoor = 0;
@@ -7,7 +8,7 @@ var rightLight = 0;
 var cameraMode = 0;
 var night = 1;
 var power = 100;
-var powerUsage = 1;
+var powerUsage = leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1;
 var decrementPower = 15000 / powerUsage;
 var time = 1;
 var order;
@@ -27,9 +28,8 @@ function init() {
 }
 
 function updateTime() {
-    time++
-    //console.log(time)
-//    console.log(time)
+    // time++;
+    // console.log(time)
 }
 
 function updatePower() {
@@ -44,13 +44,14 @@ function updateHour() {
 }
 
 function updateGameTime() {
-    var timer = setInterval(updateTime, 3000);
-    var timer2 = setInterval(updatePower, decrementPower); // decrement power every 15 seconds (default)
-    var timer3 = setInterval(updateHour, 120000); // 1 game hour == 2 mins
+    setInterval(updatePowerUsage, 1000);
+    setInterval(updateTime, 3000);
+    setInterval(updatePower, decrementPower); // decrement power every 15 seconds (default)
+    setInterval(updateHour, 120000); // 1 game hour == 2 mins
 }
 
 function updatePowerUsage() {
-    console.log(powerUsage);
+    console.log("Power usage: ", powerUsage);
     $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
     decrementPower = decrementPower / powerUsage;
 }
@@ -78,20 +79,16 @@ function muteCall() {
 
 function toggleLeftDoor() {
     leftDoor?leftDoor = 0:leftDoor = 1;
-    powerUsage = powerUsage + leftDoor;
     $(".door-on").get(0).play();
     $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
     $('.left-door > img').attr('src', 'resources/img/doors/left_door_'+leftDoor+'.gif');
-    updatePowerUsage()
 }
 
 function toggleRightDoor() {
     rightDoor?rightDoor = 0:rightDoor = 1;
-    powerUsage = powerUsage + rightDoor;
     $(".door-on").get(0).play();
     $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
     $('.right-door > img').attr('src', 'resources/img/doors/right_door_'+rightDoor+'.gif');
-    updatePowerUsage()
 }
 
 function toggleLeftLight() {
@@ -100,14 +97,12 @@ function toggleLeftLight() {
         $(".light-on").get(0).play();
         $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
         $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
-        updatePowerUsage()
     })
     $('#left-light-toggle').mouseup(function() {
         leftLight?leftLight = 0:leftLight = 1;
         $(".light-on").get(0).pause();
         $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
         $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
-        updatePowerUsage()
     })
 }
 
@@ -117,24 +112,27 @@ function toggleRightLight() {
         $(".light-on").get(0).play();
         $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
         $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
-        updatePowerUsage()
     })
     $('#right-light-toggle').mouseup(function() {
         rightLight?rightLight = 0:rightLight = 1;
         $(".light-on").get(0).pause();
         $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
         $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_'+leftLight+'_right_light_'+rightLight+'.png');
-        updatePowerUsage()
     })
 }
 
 function cameraState() {
-    // if (location.pathname === '/camera.html') {
-    //     return true; // toggle-camera
-    // } else {
-    //     return false;
-    // }
-
+    $('#toggle-camera').click(function() {
+        cameraMode?cameraMode = 0:cameraMode = 1;
+        console.log(cameraMode);
+        $('.camera-toggle').get(0).play();
+        $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif');
+        setTimeout(function() {
+            $('.camera-menu').toggleClass('show');
+            // $('#camera-bg2 img').css('opacity', 0);
+            $('#camera-bg1 img').attr('src', 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png');
+        }, 600);
+    })
 }
 
 function bonnieScare() {
@@ -182,22 +180,13 @@ $('document').ready(function() {
     console.log('DOM is loaded...');
     if (location.pathname === '/main.html') {
         init();
+        updateTime();
         updateGameTime();
         toggleLeftLight();
         toggleRightLight();
+        cameraState();
         $("#game-start").get(0).play();
         $("#ambience2").get(0).play();
-
-        $('#toggle-camera').click(function() {
-            cameraMode?cameraMode = 0:cameraMode = 1;
-            $('.camera-toggle').get(0).play();
-            $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif');
-            setTimeout(function() {
-                $('.camera-menu').toggleClass('show');
-                // $('#camera-bg2 img').css('opacity', 0);
-                $('#camera-bg1 img').attr('src', 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png');
-            }, 600);
-        })
 
         setTimeout(function() {
             $('.transition').addClass('animate-out');
