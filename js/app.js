@@ -8,7 +8,7 @@ var rightLight = 0;
 var cameraMode = 0;
 var night = 1;
 var power = 100;
-var powerUsage = leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1;
+var powerUsage = (leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1);
 var decrementPower = 15000 / powerUsage;
 var time = 1;
 var order;
@@ -53,8 +53,7 @@ function updateGameTime() {
 
 function updatePowerUsage() {
     powerUsage = leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1;
-    console.log("Power usage: ", powerUsage);
-    console.log(decrementPower);
+    decrementPower = 15000 / powerUsage;
     $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
 }
 
