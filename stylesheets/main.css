@@ -85,6 +85,10 @@ aside a:link, a:visited {
     right: 0;
 }
 
+#start-screen .static {
+    z-index: 0;
+}
+
 .mute-call {
     position: absolute;
     top: 0;
