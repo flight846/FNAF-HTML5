@@ -295,6 +295,13 @@ h1 {
     z-index: 999;
 }
 
+.camera-menu ul li.active a {
+    background-color: #555;
+    animation-name: active;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
 #camera-record > img {
     position: absolute;
     top: 4%;
@@ -302,6 +309,15 @@ h1 {
     z-index: 6;
     animation: blink-animation 1s steps(2, start) infinite;
     -webkit-animation: blink-animation 1s steps(2, start) infinite;
+}
+
+@keyframes active {
+    from {background-color: #555;}
+    to {background-color: #478733;}
+}
+@-webkit-keyframes active {
+    from {background-color: #555;}
+    to {background-color: #478733;}
 }
 
 @keyframes blink-animation {
