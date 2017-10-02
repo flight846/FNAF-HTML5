@@ -58,14 +58,47 @@ function updatePowerUsage() {
 }
 
 function moveBonny() {
+    // check nights
+
+    // check time
+
+    // check if chika
+
+    // check if freddy
+
+    // check if foxy
 
 }
 
 function moveChika() {
+    // check nights
 
+    // check time
+
+    // check if bonny
+
+    // check if freddy
+
+    // check if foxy
 }
 
 function moveFreddy() {
+    // check nights
+
+    // check time
+
+    // check if chika
+
+    // check if bonny
+
+    // check if foxy
+}
+
+function moveFoxy() {
+
+}
+
+function powerOut() {
 
 }
 
@@ -192,17 +225,19 @@ $('document').ready(function() {
         toggleLeftLight();
         toggleRightLight();
         cameraState();
-        $("#game-start").get(0).play();
+        //$("#game-start").get(0).play();
         $("#ambience2").get(0).play();
 
         setTimeout(function() {
             $('.transition').addClass('animate-out');
         }, 2900);
 
+        // show which night
+
         setTimeout(function() {
             $('.container:not(#start-screen)').css('opacity', '1');
             $('.transition').css('display', 'none');
-        }, 3900);
+        }, 6900);
 
         $('#cam1a').click(function() {
             $('#camera-bg1 img').attr('src', 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png');

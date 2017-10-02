@@ -77,7 +77,7 @@ aside a:link, a:visited {
 .static {
     background-image: url(/resources/img/game/static.gif);
     opacity: 0.4;
-    z-index: 3;
+    z-index: 6;
     position: absolute;
     top: 0;
     left: 0;
@@ -188,6 +188,7 @@ h1 {
     left:0%;
     height: 247px;
     width: 92px;
+    z-index: 3;
 }
 
 .left-door {
@@ -218,6 +219,7 @@ h1 {
     right: 0%;
     height: 247px;
     width: 92px;
+    z-index: 3;
 }
 
 .right-door {
@@ -277,7 +279,7 @@ h1 {
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: 2;
+    z-index: 3;
 }
 
 #cameras {
@@ -286,7 +288,7 @@ h1 {
     width: 30vw;
     top: 30%;
     right: 4%;
-    z-index: 2;
+    z-index: 5;
 }
 
 .camera-menu a {
@@ -297,7 +299,7 @@ h1 {
     position: absolute;
     top: 4%;
     left: 3%;
-    z-index: 3;
+    z-index: 6;
     animation: blink-animation 1s steps(2, start) infinite;
     -webkit-animation: blink-animation 1s steps(2, start) infinite;
 }
