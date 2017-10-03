@@ -175,7 +175,6 @@ function cameraState() {
 }
 
 function cameraUp() {
-    console.log(cameraMode);
     updatePowerUsage();
     $('.camera-toggle').get(0).play();
     $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_1.gif').toggleClass('display-1');
@@ -249,10 +248,13 @@ function transitionScreen() {
     setTimeout(function() {
         $('.transition').removeClass('animate-out');
         $('.transition img').attr('src', '/resources/img/game/transition-fade.gif');
-        $('.transition h3').toggleClass('display-1');
+        $('.transition h2').toggleClass('display-1');
         $('.transition #night-count').html(night);
         $('.camera-cycle').get(0).play();
     }, 4000);
+    setTimeout(function() {
+        $('.transition').addClass('animate-out');
+    }, 6000);
 }
 
 
@@ -264,13 +266,12 @@ $('document').ready(function() {
         updateGameTime();
         toggleLeftLight();
         toggleRightLight();
-        // cameraState();
-        //$("#game-start").get(0).play();
+        $("#game-start").get(0).play();
+        $("#game-start")[0].volume = 0.3;
         $("#ambience2").get(0).play();
 
         // show which night
         transitionScreen();
-
 
         setTimeout(function() {
             $('.container:not(#start-screen)').css('opacity', '1');

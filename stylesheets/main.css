@@ -40,9 +40,20 @@ aside a:link, a:visited {
     z-index: 9999;
 }
 
-.transition h3 {
-    top: 0;
-    left: 0;
+.transition h2 {
+    position: absolute;
+    color: #fff;
+    z-index: 9999;
+}
+
+#transition-night {
+    top: 46%;
+    left:46%;
+}
+
+#transition-start {
+    top: 50%;
+    left: 45%;
 }
 
 .animate-in {
