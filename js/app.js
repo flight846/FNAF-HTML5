@@ -164,20 +164,42 @@ function toggleRightLight() {
 }
 
 function cameraState() {
-    $('#toggle-camera').click(function() {
-        cameraMode?cameraMode = 0:cameraMode = 1;
-        console.log(cameraMode);
-        updatePowerUsage();
-        $('.camera-toggle').get(0).play();
-        $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif').toggleClass('display-'+cameraMode+'');
-        setTimeout(function() {
-            $('.camera-menu').toggleClass('display-'+cameraMode+'');
-            $('#camera-bg1 img').attr('src', activeCamImg);
-            // $('#camera-bg2 img').css('opacity', 0);
-            console.log('End cameraState function..');
-            $('#camera-bg2 img').toggleClass('display-0');
-        }, 600);
-    })
+    console.log('Camera clicked!');
+    if (cameraMode == 0) {
+        cameraUp();
+        cameraMode = 1
+    } else {
+        cameraDown();
+        cameraMode = 0;
+    }
+}
+
+function cameraUp() {
+    console.log(cameraMode);
+    updatePowerUsage();
+    $('.camera-toggle').get(0).play();
+    $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_1.gif').toggleClass('display-1');
+    setTimeout(function() {
+        $('.camera-menu').removeClass('display-0, display-1').addClass('display-1');
+        $('#camera-bg1 img').attr('src', activeCamImg);
+        // $('#camera-bg2 img').css('opacity', 0);
+        console.log('End cameraState function..');
+        $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
+    }, 600);
+}
+
+function cameraDown() {
+    console.log(cameraMode);
+    updatePowerUsage();
+    $('.camera-toggle').get(0).play();
+    $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
+    $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-1').attr('src', 'resources/img/cams/camera_mode_0.gif');
+    setTimeout(function() {
+        $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
+        // $('#camera-bg1 img').attr('src', activeCamImg);
+        // $('#camera-bg2 img').css('opacity', 0);
+        console.log('End cameraState function..');
+    }, 600);
 }
 
 function bonnieScare() {
@@ -241,7 +263,7 @@ $('document').ready(function() {
         updateGameTime();
         toggleLeftLight();
         toggleRightLight();
-        cameraState();
+        // cameraState();
         //$("#game-start").get(0).play();
         $("#ambience2").get(0).play();
 

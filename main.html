@@ -69,7 +69,7 @@
 
         <!-- Camera Menu-->
         <!-- camera animation -->
-        <div id="camera-bg2"><img src="" alt="" class="display-0"></div>
+
 
         <div class="camera-menu">
             <div id="camera-record"><img src="resources/img/cams/record_button.png" alt=""></div>
@@ -117,13 +117,15 @@
             </ul>
         </div>
 
+        <div id="camera-bg2"><img src="" alt="" class="display-0"></div>
+
         <!-- control-menu -->
         <div class="control">
             <div class="control-usage">
                 <p class="power">Power left: <span id="power-counter">100</span>%</p>
                 <p class="usage">Usage: <span id="usage-counter"><img src="resources/img/game/batt_usage_1.png" alt=""></span></p>
             </div>
-            <a href="#"><img id="toggle-camera" src="resources/img/game/camera_toggle.png"><audio preload="auto" class="camera-toggle" src="resources/audio/CAMERA_VIDEO_LOA_60105303.wav"></audio></a>
+            <a href="#" onclick="javascript:cameraState();"><img id="toggle-camera" src="resources/img/game/camera_toggle.png"><audio preload="auto" class="camera-toggle" src="resources/audio/CAMERA_VIDEO_LOA_60105303.wav"></audio></a>
         </div>
     </div>
     <script type="text/javascript" src="js/jquery-2.2.4.js"></script>
