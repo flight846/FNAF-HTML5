@@ -300,6 +300,10 @@ h1 {
     z-index: 5;
 }
 
+.camera-menu {
+    display: none;
+}
+
 .camera-menu a {
     z-index: 999;
 }
