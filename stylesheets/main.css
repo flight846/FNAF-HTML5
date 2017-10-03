@@ -36,8 +36,12 @@ aside a:link, a:visited {
     position: absolute;
     top:0;
     left:0;
-    background-image: url(/resources/img/game/transition_screen.png);
     z-index: 9999;
+}
+
+.transition h3 {
+    top: 0;
+    left: 0;
 }
 
 .animate-in {

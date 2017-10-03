@@ -218,6 +218,18 @@ function powerOutFreddy() {
     }
 }
 
+function transitionScreen() {
+    setTimeout(function() {
+        $('.transition').addClass('animate-out');
+    }, 2900);
+    setTimeout(function() {
+        $('.transition').removeClass('animate-out');
+        $('.transition img').attr('src', '/resources/img/game/transition-fade.gif');
+        $('.transition h3').toggleClass('display-1');
+        $('.transition #night-count').html(night);
+    }, 4000);
+}
+
 
 $('document').ready(function() {
     console.log('DOM is loaded...');
@@ -231,11 +243,9 @@ $('document').ready(function() {
         //$("#game-start").get(0).play();
         $("#ambience2").get(0).play();
 
-        setTimeout(function() {
-            $('.transition').addClass('animate-out');
-        }, 2900);
-
         // show which night
+        transitionScreen();
+
 
         setTimeout(function() {
             $('.container:not(#start-screen)').css('opacity', '1');
