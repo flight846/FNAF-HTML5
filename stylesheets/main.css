@@ -344,6 +344,14 @@ h1 {
   }
 }
 
+#camera-id {
+    position: absolute;
+    top: 30%;
+    right: 15%;
+    z-index: 1000;
+    color: #fff;
+}
+
 #cam1a {
     text-align: center;
     background-color: #555;
