@@ -9,6 +9,7 @@ html, body {
     font-family: 'Press Start 2P', cursive;
     margin: 0;
     padding: 0;
+    background-color: #000;
 }
 
 aside {
@@ -28,7 +29,7 @@ aside a:link, a:visited {
     color: inherit;
 }
 
-.transition {
+.transition img {
     height: 100vh;
     width: 100vw;
     background-size: cover;
@@ -81,7 +82,7 @@ aside a:link, a:visited {
 .static {
     background-image: url(/resources/img/game/static.gif);
     opacity: 0.4;
-    z-index: 6;
+    z-index: 4;
     position: absolute;
     top: 0;
     left: 0;

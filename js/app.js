@@ -7,7 +7,7 @@ var rightDoor = 0;
 var rightLight = 0;
 var cameraMode = 0;
 var showStage = [1, 1, 1];
-var activeCamImg = 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
+var activeCamImg;
 var night = 1;
 var power = 100;
 var powerUsage = (leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1);
@@ -166,14 +166,16 @@ function toggleRightLight() {
 function cameraState() {
     $('#toggle-camera').click(function() {
         cameraMode?cameraMode = 0:cameraMode = 1;
+        console.log(cameraMode);
         updatePowerUsage();
         $('.camera-toggle').get(0).play();
         $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif').toggleClass('display-'+cameraMode+'');
         setTimeout(function() {
             $('.camera-menu').toggleClass('display-'+cameraMode+'');
-            // $('#camera-bg2 img').css('opacity', 0);
             $('#camera-bg1 img').attr('src', activeCamImg);
-            $('#camera-bg2 img').toggleClass('display-'+cameraMode+'');
+            // $('#camera-bg2 img').css('opacity', 0);
+            console.log('End cameraState function..');
+            $('#camera-bg2 img').toggleClass('display-0');
         }, 600);
     })
 }
@@ -252,8 +254,12 @@ $('document').ready(function() {
             $('.transition').css('display', 'none');
         }, 6900);
 
+        activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
+
+        console.log(activeCamImg);
+
         $('#cam1a').click(function() {
-            activeCamImg = 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
+            activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
@@ -261,70 +267,70 @@ $('document').ready(function() {
         }),
 
         $('#cam1b').click(function() {
-            activeCamImg = 'resources/img/rooms/1b_dining_area/1b_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/1b_dining_area/1b_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam1c').click(function() {
-            activeCamImg = 'resources/img/rooms/1c_pirate_cove/1c_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/1c_pirate_cove/1c_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam2a').click(function() {
-            activeCamImg = 'resources/img/rooms/2a_west_hall/2a_b0_c0_f0.gif';
+            activeCamImg = '/resources/img/rooms/2a_west_hall/2a_b0_c0_f0.gif';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam2b').click(function() {
-            activeCamImg = 'resources/img/rooms/2b_west_hall_corner/2b_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/2b_west_hall_corner/2b_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam3').click(function() {
-            activeCamImg = 'resources/img/rooms/3_supply_closet/3_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/3_supply_closet/3_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam4a').click(function() {
-            activeCamImg = 'resources/img/rooms/4a_east_hall/4a_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/4a_east_hall/4a_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam4b').click(function() {
-            activeCamImg = 'resources/img/rooms/4b_east_hall_corner/4b_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/4b_east_hall_corner/4b_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam5').click(function() {
-            activeCamImg = 'resources/img/rooms/5_backstage/5_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/5_backstage/5_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         }),
         $('#cam6').click(function() {
-            activeCamImg = 'resources/img/rooms/6_kitchen/6_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/6_kitchen/6_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
             $('.camera-cycle').get(0).play();
         })
         $('#cam7').click(function() {
-            activeCamImg = 'resources/img/rooms/7_restroom/7_b0_c0_f0.png';
+            activeCamImg = '/resources/img/rooms/7_restroom/7_b0_c0_f0.png';
             $('#camera-bg1 img').attr('src', activeCamImg);
             $('.camera-menu ul li').removeClass('active');
             $(this).parent().toggleClass('active');
