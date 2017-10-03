@@ -500,10 +500,10 @@ h1 {
     text-decoration: none;
 }
 
-.hide {
+.display-0 {
     display: none;
 }
 
-.show {
+.display-1 {
     display: block;
 }

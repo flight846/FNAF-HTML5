@@ -64,13 +64,18 @@
         </div>
 
         <!-- Camera Menu-->
-        <div class="camera-menu hide">
-            <div class="static"></div>
+        <!-- camera animation -->
+        <div id="camera-bg2"><img src="" alt="" class="display-0"></div>
+
+        <div class="camera-menu display-0">
             <div id="camera-record"><img src="resources/img/cams/record_button.png" alt=""></div>
             <div id="camera-bg1"><img src="" alt=""></div>
-            <div id="camera-bg2"><img src="" alt=""></div>
+
+            <!-- camera screen -->
             <div id="camera-bg3"><img src="resources/img/cams/camera_screen.png" alt=""></div>
+            <!-- camera map -->
             <img id="cameras" src="resources/img/game/camera_map.png">
+            <div class="static"></div>
             <ul>
                 <li class="active">
                     <a href="#" id="cam1a">CAM<br>1A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
@@ -124,7 +129,7 @@
         setTimeout(function() {
             $("#call").get(0).play();
             $('.mute-call').fadeIn();
-        }, 7000);
+        }, 9000);
     </script>
 </body>
 </html>

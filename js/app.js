@@ -168,11 +168,12 @@ function cameraState() {
         cameraMode?cameraMode = 0:cameraMode = 1;
         updatePowerUsage();
         $('.camera-toggle').get(0).play();
-        $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif');
+        $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_'+cameraMode+'.gif').toggleClass('display-'+cameraMode+'');
         setTimeout(function() {
-            $('.camera-menu').toggleClass('show');
+            $('.camera-menu').toggleClass('display-'+cameraMode+'');
             // $('#camera-bg2 img').css('opacity', 0);
             $('#camera-bg1 img').attr('src', activeCamImg);
+            $('#camera-bg2 img').toggleClass('display-'+cameraMode+'');
         }, 600);
     })
 }
