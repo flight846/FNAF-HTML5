@@ -13,6 +13,7 @@ var power = 100;
 var powerUsage = (leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1);
 var decrementPower = 15000 / powerUsage;
 var time = 1;
+var cam1aClicks = 0;
 var order;
 var rooms= [];
 
@@ -283,12 +284,23 @@ $('document').ready(function() {
         console.log(activeCamImg);
 
         $('#cam1a').click(function() {
-            activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
-            $('#camera-id').html($(this).data('camname'));
-            $('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            cam1aClicks++;
+            if (cam1aClicks >= 3 && cam1aClicks < 5 && showStage[0] == 1 && showStage[1] == 1 && showStage[2] == 1) {
+                console.log('Cam1a clicks: ', cam1aClicks);
+                activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_turn.png';
+                $('#camera-id').html($(this).data('camname'));
+                $('#camera-bg1 img').attr('src', activeCamImg);
+                $('.camera-menu ul li').removeClass('active');
+                $(this).parent().toggleClass('active');
+                $('.camera-cycle').get(0).play();
+            } else {
+                activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
+                $('#camera-id').html($(this).data('camname'));
+                $('#camera-bg1 img').attr('src', activeCamImg);
+                $('.camera-menu ul li').removeClass('active');
+                $(this).parent().toggleClass('active');
+                $('.camera-cycle').get(0).play();
+            }
         }),
 
         $('#cam1b').click(function() {
