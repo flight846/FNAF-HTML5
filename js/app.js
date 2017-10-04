@@ -15,7 +15,9 @@ var decrementPower = 15000 / powerUsage;
 var time = 1;
 var cam1aClicks = 0;
 var order;
-var rooms= [];
+var rooms = [];
+var foxyStatus = 0;
+var levelCode = Math.floor((Math.random() * 10) + 1); // random 1 to 10 ** how fast the anematronics move in seconds
 
 
 // reset
@@ -96,6 +98,7 @@ function addNight() {
 }
 
 function moveBonny() {
+    showStage[0] = 1;
     // check nights
 
     // check time
@@ -109,6 +112,7 @@ function moveBonny() {
 }
 
 function moveChika() {
+    showStage[1] = 1;
     // check nights
 
     // check time
@@ -121,6 +125,7 @@ function moveChika() {
 }
 
 function moveFreddy() {
+    showStage[2] = 1;
     // check nights
 
     // check time
