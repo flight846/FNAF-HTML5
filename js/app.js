@@ -32,6 +32,17 @@ function init() {
     // location.replace('/index.html');
 }
 
+function gamestart() {
+    updateTime();
+    setInterval(updateGameTime, 1000);
+    toggleLeftLight();
+    toggleRightLight();
+    updatePowerUsage();
+    $("#game-start").get(0).play();
+    $("#game-start")[0].volume = 0.3;
+    $("#ambience2").get(0).play();
+}
+
 function updateTime() {
     setInterval(function() {
         time--;
@@ -283,6 +294,7 @@ function transitionScreen(night) {
     setTimeout(function() {
         $('.container:not(#start-screen)').css('opacity', '1');
         $('.transition').css('display', 'none');
+        gamestart();
     }, 6900);
 
     activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
@@ -295,16 +307,7 @@ $('document').ready(function() {
     console.log('DOM is loaded...');
     if (location.pathname === '/main.html') {
         init();
-        updateTime();
-        setInterval(updateGameTime, 1000);
-        toggleLeftLight();
-        toggleRightLight();
-        updatePowerUsage();
-        $("#game-start").get(0).play();
-        $("#game-start")[0].volume = 0.3;
-        $("#ambience2").get(0).play();
-
-        // show which night
+        // show which night and game start
         transitionScreen(night);
 
         $('#cam1a').click(function() {
