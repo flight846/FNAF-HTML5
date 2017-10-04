@@ -1,6 +1,7 @@
 var time = 172; // Game seconds
 var hour = 0;
 var hourInterval = setInterval(updateHour, 86000); // 1 game hour == 86 rl seconds = 28 game seconds
+var powerInterval;
 var jumpReady = false;
 var leftDoor = 0;
 var leftLight = 0;
@@ -71,8 +72,8 @@ function updatePowerUsage() {
     $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
     decrementPower = 15000 / powerUsage;
     console.log(powerUsage, decrementPower);
-    clearInterval(powerInterval);
-    var powerInterval = setInterval(function() {
+    // clearInterval(powerInterval);
+    powerInterval = setInterval(function() {
         console.log("Toggled. Power interval updated: ", decrementPower);
         power--;
         $('#power-counter').html(power);
@@ -162,6 +163,7 @@ function toggleLeftDoor() {
 
 function toggleRightDoor() {
     rightDoor?rightDoor = 0:rightDoor = 1;
+    clearInterval(powerInterval);
     updatePowerUsage();
     $(".door-on").get(0).play();
     $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
@@ -171,6 +173,7 @@ function toggleRightDoor() {
 function toggleLeftLight() {
     $('#left-light-toggle').mousedown(function() {
         leftLight?leftLight = 0:leftLight = 1;
+        clearInterval(powerInterval);
         updatePowerUsage();
         $(".light-on").get(0).play();
         $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
@@ -178,6 +181,7 @@ function toggleLeftLight() {
     })
     $('#left-light-toggle').mouseup(function() {
         leftLight?leftLight = 0:leftLight = 1;
+        clearInterval(powerInterval);
         updatePowerUsage();
         $(".light-on").get(0).pause();
         $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
@@ -188,6 +192,7 @@ function toggleLeftLight() {
 function toggleRightLight() {
     $('#right-light-toggle').mousedown(function() {
         rightLight?rightLight = 0:rightLight = 1;
+        clearInterval(powerInterval);
         updatePowerUsage();
         $(".light-on").get(0).play();
         $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
@@ -195,6 +200,7 @@ function toggleRightLight() {
     })
     $('#right-light-toggle').mouseup(function() {
         rightLight?rightLight = 0:rightLight = 1;
+        clearInterval(powerInterval);
         updatePowerUsage();
         $(".light-on").get(0).pause();
         $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
@@ -209,6 +215,7 @@ function cameraState() {
 
 function cameraUp() {
     cameraMode = 1;
+    clearInterval(powerInterval);
     updatePowerUsage();
     $('.camera-toggle').get(0).play();
     $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_1.gif').toggleClass('display-1');
@@ -223,6 +230,7 @@ function cameraUp() {
 
 function cameraDown() {
     cameraMode = 0;
+    clearInterval(powerInterval);
     updatePowerUsage();
     $('.camera-toggle').get(0).play();
     $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
