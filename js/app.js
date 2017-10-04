@@ -45,17 +45,19 @@ function gamestart() {
 }
 
 function updateTime() {
-    setInterval(function() {
-        time--;
-        console.log(time)
-    }, 3000);
+    if (time >= 0) {
+        setInterval(function() {
+            time--;
+            console.log(time)
+        }, 3000);
+    }
 }
 
 function updateHour() {
     if (time === 0) {
         clearInterval(hourInterval);
-        night++;
         transitionScreen(night);
+        night++;
         init();
     } else if (hour <= 6 && time >= 0) {
         hour++
