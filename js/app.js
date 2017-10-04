@@ -1,5 +1,6 @@
 var time = 172; // Game seconds
 var hour = 0;
+var hourInterval = setInterval(updateHour, 86000); // 1 game hour == 86 rl seconds = 28 game seconds
 var jumpReady = false;
 var leftDoor = 0;
 var leftLight = 0;
@@ -22,7 +23,6 @@ var levelCode = Math.floor((Math.random() * 10) + 1); // random 1 to 10 ** how f
 
 // reset
 function init() {
-    night = 1;
     time = 172;
     jumpReady = false;
     powerOutAttacked = false;
@@ -36,7 +36,6 @@ function init() {
 
 function gamestart() {
     updateTime();
-    setInterval(updateGameTime, 1000);
     toggleLeftLight();
     toggleRightLight();
     updatePowerUsage();
@@ -53,17 +52,14 @@ function updateTime() {
 }
 
 function updateHour() {
-    hour++
-    $('#hour-counter').html(hour)
-}
-
-// game update per second
-function updateGameTime() {
-    setInterval(updateHour, 86000); // 1 game hour == 86 rl seconds = 28 game seconds
-    // new day
     if (time === 0) {
+        clearInterval(hourInterval);
         night++;
         transitionScreen(night);
+        init();
+    } else if (hour <= 6 && time >= 0) {
+        hour++
+        $('#hour-counter').html(hour);
     }
 }
 
@@ -310,7 +306,7 @@ function transitionScreen(night) {
 function continueGame() {
     if (night > 2) {
         // show continue game?
-        
+
     }
 }
 
