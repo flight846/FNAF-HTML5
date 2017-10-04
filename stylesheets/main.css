@@ -25,6 +25,17 @@ aside h1 {
     line-height: 1.6;
 }
 
+aside p {
+    /* font-weight: 700; */
+    position: absolute;
+    top: 141%;
+    left: 2%;
+    font-size: 20px; 
+    height: 100px;
+    width: 300px;
+    color: #fff;
+}
+
 aside a:link, a:visited {
     color: inherit;
 }
@@ -141,16 +152,24 @@ h1 {
 }
 
 #start-game {
-    font-weight: 100;
-    position: absolute;
     top: 70%;
     left: 23%;
+}
+
+#continue-game {
+    top: 79%;
+    left: 23%;
+}
+
+#start-game, #continue-game {
+    font-weight: 100;
+    position: absolute;
     font-size: 30px;
     color: #fff;
     text-decoration: none;
 }
 
-#start-game:hover:before {
+#start-game:hover:before, #continue-game:hover:before {
     content: "> "
 }
 

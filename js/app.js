@@ -307,6 +307,13 @@ function transitionScreen(night) {
     console.log(activeCamImg);
 }
 
+function continueGame() {
+    if (night > 2) {
+        // show continue game?
+        
+    }
+}
+
 
 $('document').ready(function() {
     console.log('DOM is loaded...');
