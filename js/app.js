@@ -1,4 +1,4 @@
-var time = 57333; // 1 night seconds. Game seconds = 3 rl seconds
+var time = 172; // Game seconds
 var hour = 0;
 var jumpReady = false;
 var leftDoor = 0;
@@ -21,7 +21,7 @@ var rooms= [];
 // reset
 function init() {
     night = 1;
-    time = 57333;
+    time = 172;
     jumpReady = false;
     powerOutAttacked = false;
     alreadyAttacked = false;
@@ -33,34 +33,55 @@ function init() {
 }
 
 function updateTime() {
-    time--;
-    console.log(time)
-}
-
-function updatePower() {
-    // power--
-    power--;
-    $('#power-counter').html(power);
+    setInterval(function() {
+        time--;
+        console.log(time)
+    }, 3000);
 }
 
 function updateHour() {
     hour++
-    console.log(time)
     $('#hour-counter').html(hour)
 }
 
+// game update per second
 function updateGameTime() {
-    updatePowerUsage();
-    setInterval(updateTime, 3000);
-    setInterval(updatePower, decrementPower); // decrement power every 15 seconds (default)
     setInterval(updateHour, 86000); // 1 game hour == 86 rl seconds = 28 game seconds
+    // new day
+    if (time === 0) {
+        night++;
+        transitionScreen(night);
+    }
 }
 
+// bug
 function updatePowerUsage() {
     powerUsage = leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1;
-    decrementPower = 15000 / powerUsage;
-    console.log(decrementPower);
     $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
+    decrementPower = 15000 / powerUsage;
+    console.log(powerUsage, decrementPower);
+    clearInterval(powerInterval);
+    var powerInterval = setInterval(function() {
+        console.log("Toggled. Power interval updated: ", decrementPower);
+        power--;
+        $('#power-counter').html(power);
+    }, decrementPower);
+    // $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
+    // setInterval(function() {
+    //     console.log(decrementPower);
+    //     power--;
+    //     console.log("Power: " + power + "%, Usage: " + decrementPower);
+    //     $('#power-counter').html(power);
+    // }, decrementPower);
+}
+
+function addNight() {
+    $('.container:not(#start-screen)').addClass('animate-out');
+    // change transition image
+    $('.transition img').src('/resources')
+    // animate in transition screen
+
+
 }
 
 function moveBonny() {
@@ -169,18 +190,11 @@ function toggleRightLight() {
 
 function cameraState() {
     console.log('Camera clicked!');
-    if (cameraMode == 0) {
-        cameraUp();
-        cameraMode = 1
-        updatePowerUsage();
-    } else {
-        cameraDown();
-        cameraMode = 0;
-        updatePowerUsage();
-    }
+    cameraMode ? cameraDown() : cameraUp();
 }
 
 function cameraUp() {
+    cameraMode = 1;
     updatePowerUsage();
     $('.camera-toggle').get(0).play();
     $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_1.gif').toggleClass('display-1');
@@ -194,7 +208,7 @@ function cameraUp() {
 }
 
 function cameraDown() {
-    console.log(cameraMode);
+    cameraMode = 0;
     updatePowerUsage();
     $('.camera-toggle').get(0).play();
     $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
@@ -247,10 +261,13 @@ function powerOutFreddy() {
     }
 }
 
-function transitionScreen() {
+function transitionScreen(night) {
+    $('.container:not(#start-screen)').addClass('animate-out');
+
     setTimeout(function() {
         $('.transition').addClass('animate-out');
     }, 2900);
+
     setTimeout(function() {
         $('.transition').removeClass('animate-out');
         $('.transition img').attr('src', '/resources/img/game/transition-fade.gif');
@@ -258,9 +275,19 @@ function transitionScreen() {
         $('.transition #night-count').html(night);
         $('.camera-cycle').get(0).play();
     }, 4000);
+
     setTimeout(function() {
         $('.transition').addClass('animate-out');
     }, 6000);
+
+    setTimeout(function() {
+        $('.container:not(#start-screen)').css('opacity', '1');
+        $('.transition').css('display', 'none');
+    }, 6900);
+
+    activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
+
+    console.log(activeCamImg);
 }
 
 
@@ -269,24 +296,16 @@ $('document').ready(function() {
     if (location.pathname === '/main.html') {
         init();
         updateTime();
-        setInterval(updateGameTime(), 1000);
+        setInterval(updateGameTime, 1000);
         toggleLeftLight();
         toggleRightLight();
+        updatePowerUsage();
         $("#game-start").get(0).play();
         $("#game-start")[0].volume = 0.3;
         $("#ambience2").get(0).play();
 
         // show which night
-        transitionScreen();
-
-        setTimeout(function() {
-            $('.container:not(#start-screen)').css('opacity', '1');
-            $('.transition').css('display', 'none');
-        }, 6900);
-
-        activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
-
-        console.log(activeCamImg);
+        transitionScreen(night);
 
         $('#cam1a').click(function() {
             cam1aClicks++;
