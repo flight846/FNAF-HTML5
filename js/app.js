@@ -1,4 +1,4 @@
-var time = 0;
+var time = 57333; // 1 night seconds. Game seconds = 3 rl seconds
 var hour = 0;
 var jumpReady = false;
 var leftDoor = 0;
@@ -21,18 +21,20 @@ var rooms= [];
 // reset
 function init() {
     night = 1;
-    time = 0;
+    time = 57333;
     jumpReady = false;
     powerOutAttacked = false;
     alreadyAttacked = false;
     rightDoor = 0;
     leftDoor = 0;
+    power = 100;
+    cam1aClicks = 0;
     // location.replace('/index.html');
 }
 
 function updateTime() {
-    // time++;
-    // console.log(time)
+    time--;
+    console.log(time)
 }
 
 function updatePower() {
@@ -48,15 +50,16 @@ function updateHour() {
 }
 
 function updateGameTime() {
-    setInterval(updatePowerUsage, 1000);
+    updatePowerUsage();
     setInterval(updateTime, 3000);
     setInterval(updatePower, decrementPower); // decrement power every 15 seconds (default)
-    setInterval(updateHour, 120000); // 1 game hour == 2 mins
+    setInterval(updateHour, 86000); // 1 game hour == 86 rl seconds = 28 game seconds
 }
 
 function updatePowerUsage() {
     powerUsage = leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1;
     decrementPower = 15000 / powerUsage;
+    console.log(decrementPower);
     $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
 }
 
@@ -169,9 +172,11 @@ function cameraState() {
     if (cameraMode == 0) {
         cameraUp();
         cameraMode = 1
+        updatePowerUsage();
     } else {
         cameraDown();
         cameraMode = 0;
+        updatePowerUsage();
     }
 }
 
@@ -264,7 +269,7 @@ $('document').ready(function() {
     if (location.pathname === '/main.html') {
         init();
         updateTime();
-        updateGameTime();
+        setInterval(updateGameTime(), 1000);
         toggleLeftLight();
         toggleRightLight();
         $("#game-start").get(0).play();
