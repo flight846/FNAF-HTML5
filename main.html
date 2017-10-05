@@ -27,7 +27,7 @@
 
         <!-- background -->
         <div class="background">
-            <a href="javascript:muteCall();" class="to-hide"><img class="mute-call" src="resources/img/game/mute_call.png" alt=""></a>
+            <a href="javascript:;" class="to-hide" onclick="muteCall()"><img class="mute-call" src="resources/img/game/mute_call.png" alt=""></a>
             <!-- <img class="main-screen transition" src="resources/img/transition_screen.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;"> -->
             <img class="main-screen" src="resources/img/rooms/safe_room/safe_room_left_light_0_right_light_0.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;">
             <img id="spinning-fan" class="to-hide" src="resources/img/game/spinning_fan.gif">
@@ -39,6 +39,9 @@
             <h2 class="show-night">Night <span id="night-counter">1</span></h2>
         </div>
 
+
+        <audio preload="auto" class="light-on" src="resources/audio/BallastHumMedium2.wav"></audio>
+        <audio preload="auto" class="door-sound" src="resources/audio/SFXBible_12478.wav"></audio>
         <!-- Left Door Switch-->
         <div class="left to-hide">
             <div class="left-door">
@@ -47,14 +50,12 @@
             <div class="left-switch">
                 <img src="resources/img/rooms/left_switch_door_0_light_0.png" alt="" usemap="left-door-switch">
                 <map name="left-door-switch">
-                    <area target="" alt="door" title="door" href="javascript:toggleLeftDoor();" coords="31,107,69,53" shape="rect">
-                    <area target="" id="left-light-toggle" alt="light" title="light" href="javascript:;" coords="70,187,31,134" shape="rect">
+                    <area target="" alt="Door Switch" title="Door Switch" href="javascript:toggleLeftDoor();" coords="31,107,69,53" shape="rect">
+                    <area target="" id="left-light-toggle" alt="Light Switch" title="Light Switch (Hold to On)" href="javascript:;" coords="70,187,31,134" shape="rect">
                 </map>
-                <audio preload="auto" class="light-on" src="resources/audio/BallastHumMedium2.wav"></audio>
-                <audio preload="auto" class="door-on" src="resources/audio/SFXBible_12478.wav"></audio>
+                
             </div>
         </div>
-
         <!--  Right Door Switch-->
         <div class="right to-hide">
             <div class="right-door">
@@ -63,11 +64,9 @@
             <div class="right-switch">
                 <img src="resources/img/rooms/right_switch_door_0_light_0.png" alt="" usemap="right-door-switch">
                 <map name="right-door-switch">
-                    <area target="" alt="door" title="door" href="javascript:toggleRightDoor();" coords="24,53,62,107" shape="rect">
-                    <area target="" id="right-light-toggle" alt="light" title="light" href="javascript:;" coords="23,133,63,187" shape="rect">
+                    <area target="" alt="Door Switch" title="Door Switch" href="javascript:toggleRightDoor();" coords="24,53,62,107" shape="rect">
+                    <area target="" id="right-light-toggle" alt="Light Switch" title="Light Switch (Hold to On)" href="javascript:;" coords="23,133,63,187" shape="rect">
                 </map>
-                <audio preload="auto" class="light-on" src="resources/audio/BallastHumMedium2.wav"></audio>
-                <audio preload="auto" class="door-on" src="resources/audio/SFXBible_12478.wav"></audio>
             </div>
         </div>
 
@@ -87,37 +86,37 @@
             <div class="static"></div>
             <ul>
                 <li class="active">
-                    <a href="#" data-camname="Showstage" id="cam1a">CAM<br>1A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="Showstage" id="cam1a">CAM<br>1A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="Dining Area" id="cam1b">CAM<br>1B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="Dining Area" id="cam1b">CAM<br>1B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="Backstage" id="cam5">CAM<br>5<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="Backstage" id="cam5">CAM<br>5<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="Pirate Cove" id="cam1c">CAM<br>1C<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="Pirate Cove" id="cam1c">CAM<br>1C<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="Supply Closet" id="cam3">CAM<br>3<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="Supply Closet" id="cam3">CAM<br>3<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="West Hall" id="cam2a">CAM<br>2A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="West Hall" id="cam2a">CAM<br>2A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="West Hall Corner" id="cam2b">CAM<br>2B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="West Hall Corner" id="cam2b">CAM<br>2B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="East Hall Corner" id="cam4b">CAM<br>4B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="East Hall Corner" id="cam4b">CAM<br>4B<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="East Hall" id="cam4a">CAM<br>4A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="East Hall" id="cam4a">CAM<br>4A<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="Kitchen" id="cam6">CAM<br>6<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="Kitchen" id="cam6">CAM<br>6<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
                 <li class="">
-                    <a href="#" data-camname="Rest Rooms" id="cam7">CAM<br>7<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
+                    <a href="javascript:;" data-camname="Rest Rooms" id="cam7">CAM<br>7<audio preload="auto" class="camera-cycle" src="resources/audio/blip3.wav"></audio></a>
                 </li>
             </ul>
         </div>
@@ -130,7 +129,7 @@
                 <p class="power">Power left: <span id="power-counter">100</span>%</p>
                 <p class="usage">Usage: <span id="usage-counter"><img src="resources/img/game/batt_usage_1.png" alt=""></span></p>
             </div>
-            <a href="#" onclick="javascript:cameraState();"><img id="toggle-camera" src="resources/img/game/camera_toggle.png"><audio preload="auto" class="camera-toggle" src="resources/audio/CAMERA_VIDEO_LOA_60105303.wav"></audio></a>
+            <a href="javascript:;" onclick="cameraState();"><img id="toggle-camera" src="resources/img/game/camera_toggle.png"><audio preload="auto" class="camera-toggle" src="resources/audio/CAMERA_VIDEO_LOA_60105303.wav"></audio></a>
         </div>
     </div>
     <script type="text/javascript" src="js/jquery-2.2.4.js"></script>

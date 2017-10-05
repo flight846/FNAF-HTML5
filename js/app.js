@@ -1,7 +1,6 @@
 var time = 172; // Game seconds
 var hour = 0;
 var hourInterval = null; // 1 game hour == 86 rl seconds = 28 game seconds
-var powerInterval;
 var jumpReady = false;
 var leftDoor = 0;
 var leftLight = 0;
@@ -33,7 +32,7 @@ var rooms = {
 var foxyStatus = 0;
 var levelCode = Math.floor((Math.random() * 10) + 1); // random 1 to 10 ** how fast the anematronics move in seconds
 
-
+//time and power
 var _oneHour = 860; //ticks per hour
 var currentTime = 0;
 var _perPowerUsage = 150; //ticks per powerbar
@@ -44,9 +43,9 @@ var _currentImgPath = '/resources/img/rooms/1a_show_stage/cam_1a_';
 var _currentImgRoom = '1a';
 
 
-var bonnie = new bonnieAI();
-var chick = new chickAI();
-var gameover = false;
+var bonnie = new moveAI('Bonnie', 'b', 'left', 'resources/img/rooms/safe_room/bonnie_jumpscare.gif', ['1a', '1b', '3', '5', '2b', 'safe']);
+var chick = new moveAI('Chick', 'c', 'right', 'resources/img/rooms/safe_room/chika_jumpscare.gif', ['1a', '1b', '7', '4a', '4b', 'safe']);
+var gameEnd = false;
 
 // reset
 function reset() {
@@ -75,7 +74,7 @@ function gamestart() {
 //constants running game ticks
 function initGameTime() {
     setInterval(function () {
-        if (!gameover) {
+        if (!gameEnd) {
             burnTime();
             burnPower();
         }
@@ -95,7 +94,7 @@ function burnPower() {
 
         if (power == 0) {
             console.log('GAME LOSE ->> Out of power');
-            gameover = true;
+            gameEnd = true;
             $('.to-hide').css('display', 'none');
             $("#powerout-sound").get(0).play();
             $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_power_0.png');
@@ -106,10 +105,17 @@ function burnPower() {
                 $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_powerdown_foxy.gif');
                 $("#powerout-jingle").get(0).play();
             }, 2000);
+
             setTimeout(function() {
                 $("#powerout-jingle").get(0).pause();
-                restart();
-            }, 11000);
+
+                setTimeout(function () {
+                    $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/power_down_freddy_scare.gif');
+                    //play sounds
+                    setTimeout(function () { $("#scare").get(0).play(); }, 1000);
+                    setTimeout(function () { $("#scare").get(0).pause(); restart(); }, 4000);
+                }, 2000);
+            }, 12000);
         }
     }
 }
@@ -140,18 +146,22 @@ function updatePowerUsage() {
 }
 
 
-
-
-
-function bonnieAI() {
+//default movingAI
+function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
     var movePower = 0;
+    var maxMovePower = 300;
     var attackPower = 0;
-    var roomPath = ['1a', '1b', '3', '5', '2b', 'safe'];
+    var maxAttackPower = 300;
+    var roomPath = paraPath;
+    var myName = paraName;
+    var myId = paraID;
+    var scareScreen = paraScare;
+    var scareDoor = paraDoor;
     var currentRoom = 0;
     var endGame = false;
 
     var tick = function () {
-        if (!endGame && !gameover) {
+        if (!endGame && !gameEnd) {
             movePower += rnd(10);
             //check if ai at room
             if (roomPath[currentRoom] == 'safe') {
@@ -165,125 +175,67 @@ function bonnieAI() {
 
     var move = function () {
         toMove = rnd(10);
-        newRoom = rnd((roomPath.length - 1));
+        newRoom = rnd((roomPath.length - 2));
         //if (toMove == 1 && (currentRoom < (roomPath.length-1))) {
         if (toMove == 1) {
-            if ((!rooms[roomPath[newRoom]].occupy) && !(cameraMode && (_currentImgRoom == roomPath[currentRoom]))) {
+            //when beside safe force new room to be safe
+            if (currentRoom == (roomPath.length - 2)) {
+                newRoom = (roomPath.length - 1);
+            }
+
+            if ((!rooms[roomPath[newRoom]].occupy) && !(cameraMode && (_currentImgRoom == roomPath[currentRoom])) && !(cameraMode && (_currentImgRoom == roomPath[newRoom]))) {
+
                 //clear current and move to new room
-                rooms[roomPath[currentRoom]].b = 0;
+                rooms[roomPath[currentRoom]][myId] = 0;
                 rooms[roomPath[currentRoom]].occupy = 0;
-
-                currentRoom = rnd((roomPath.length - 1));
-
-                rooms[roomPath[currentRoom]].b = 1;
+                //update current room
+                currentRoom = newRoom;
+                rooms[roomPath[currentRoom]][myId] = 1;
                 rooms[roomPath[currentRoom]].occupy = 1;
 
                 movePower = 0;
-                if (cameraMode) { updateCamImg(_currentImgPath, _currentImgRoom); }
-                console.log('Bonnie moved to', roomPath[currentRoom]);
+                //if (cameraMode) { updateCamImg(_currentImgPath, _currentImgRoom); }
+                console.log(myName + ' moved to', roomPath[currentRoom]);
             }
-            else { move(); }
+            else {
+                if (cameraMode && (_currentImgRoom == roomPath[currentRoom])) { movePower = 0; console.log(myName + ' move power reset to 0'); }
+                else { move(); }
+            }
         }
-        //console.log('', toMove);
     }
 
     var attack = function () {
-        console.log('Bonnie preparing to attack: ', attackPower);
-        if (!leftDoor) {
+        doorStatus = (scareDoor == 'left') ? leftDoor : rightDoor;
+        if (!doorStatus) {
+            console.log(myName + ' preparing to attack:', attackPower + '/' + maxAttackPower);
             attackPower += rnd(10);
-            if (attackPower >= 300) { scare(); }
+            if (attackPower >= maxAttackPower) { scare(); }
         }
         else {
+            console.log(myName + ' attack is blocked');
             attackPower = 0;
             if (rnd(5) == 5) { move(); }
-            console.log('Bonnie attack failed');
         }
     }
 
     var scare = function () {
         if (!cameraMode) {
+            //set displays
             $('.to-hide').css('display', 'none');
-            $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/bonnie_jumpscare.gif');
-            endGame = true;
-            gameover = true;
-            console.log('Bonnie attacked!');
+            $('.background .main-screen').attr('src', scareScreen);
+
+            //play sounds
             $("#scare").get(0).play();
+            setTimeout(function () { $("#scare").get(0).pause(); }, 4000);
+
+            //set attributes
+            endGame = true;
+            gameEnd = true;
+            console.log(myName + ' attacked!');
+
             restart();
         }
     }
-
-    return { tick: tick };
-}
-
-
-function chickAI() {
-    var movePower = 0;
-    var attackPower = 0;
-    var roomPath = ['1a', '1b', '4a', '4b', '7', 'safe'];
-    var currentRoom = 0;
-    var endGame = false;
-
-    var tick = function () {
-        if (!endGame && !gameover) {
-            movePower += rnd(10);
-            //check if ai at room
-            if (roomPath[currentRoom] == 'safe') {
-                attack();
-            }
-            else if (movePower >= 500) {
-                move();
-            }
-        }
-    }
-
-    var move = function () {
-        toMove = rnd(10);
-        newRoom = rnd((roomPath.length - 1));
-
-        if (toMove == 1) {
-            if ((!rooms[roomPath[newRoom]].occupy) && !(cameraMode && (_currentImgRoom==roomPath[currentRoom]))){
-                //clear current and move to new room
-                rooms[roomPath[currentRoom]].c = 0;
-                rooms[roomPath[currentRoom]].occupy = 0;
-
-                currentRoom = rnd((roomPath.length - 1));
-
-                rooms[roomPath[currentRoom]].c = 1;
-                rooms[roomPath[currentRoom]].occupy = 1;
-
-                movePower = 0;
-                if (cameraMode) { updateCamImg(_currentImgPath, _currentImgRoom); }
-                console.log('Chick moved to', roomPath[currentRoom]);
-            }
-            else { move(); }
-        }
-    }
-
-    var attack = function () {
-        console.log('Chick preparing to attack: ', attackPower);
-        if (!rightDoor) {
-            attackPower += rnd(10);
-            if (attackPower >= 300) { scare(); }
-        }
-        else {
-            attackPower = 0;
-            if (rnd(5) == 5) { move(); }
-            console.log('Chick attack failed');
-        }
-    }
-
-    var scare = function () {
-        if (!cameraMode) {
-            $('.to-hide').css('display', 'none');
-            $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/chika_jumpscare.gif');
-            endGame = true;
-            gameover = true;
-            console.log('Chick attacked!');
-            $("#scare").get(0).play();
-            restart();
-        }
-    }
-
     return { tick: tick };
 }
 
@@ -318,24 +270,37 @@ function muteCall() {
     $('.mute-call').css('display', 'none');
 }
 
+
+
+//all door activity
+//================
 function toggleLeftDoor() {
-    leftDoor?leftDoor = 0:leftDoor = 1;
-    updatePowerUsage();
-    $(".door-on").get(0).play();
-    $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_'+leftDoor+'_light_'+leftLight+'.png');
-    $('.left-door > img').attr('src', 'resources/img/doors/left_door_'+leftDoor+'.gif');
+    leftDoor ? leftDoor = 0 : leftDoor = 1;
+    toggleDoor('left', leftDoor);
+    //$('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_' + leftDoor + '_light_' + leftLight + '.png');
+    //$('.left-door > img').attr('src', 'resources/img/doors/left_door_' + leftDoor + '.gif');
 }
 
 function toggleRightDoor() {
     rightDoor ? rightDoor = 0 : rightDoor = 1;
+    toggleDoor('right', rightDoor);
+    //$('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_' + rightDoor + '_light_' + rightLight + '.png');
+    //$('.right-door > img').attr('src', 'resources/img/doors/right_door_' + rightDoor + '.gif');
+}
+
+function toggleDoor(location, door) {
     updatePowerUsage();
-    $(".door-on").get(0).play();
-    $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_'+rightDoor+'_light_'+rightLight+'.png');
-    $('.right-door > img').attr('src', 'resources/img/doors/right_door_'+rightDoor+'.gif');
+    $('.door-sound').get(0).pause();
+    $('.door-sound').get(0).currentTime = 0;
+    $('.door-sound').get(0).play();
+    $('.' + location + '-switch > img').attr('src', 'resources/img/rooms/' + location + '_switch_door_' + door + '_light_' + ((location=='right') ? rightLight : leftLight) + '.png');
+    $('.' + location + '-door > img').attr('src', 'resources/img/doors/' + location + '_door_' + door + '.gif');
 }
 
 
+
 //all lights activity
+//================
 function toggleLeftLight() {
     $('#left-light-toggle').mousedown(function () {
         leftLight = 1;
@@ -366,21 +331,25 @@ function toggleRightLight() {
 }
 
 function processLightActivty(state, pos) {
-    if (pos == 'left') { $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_' + leftDoor + '_light_' + leftLight + '.png'); }
-    else { $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_' + rightDoor + '_light_' + rightLight + '.png'); }
+    if (!gameEnd) {
+        if (pos == 'left') { $('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_' + leftDoor + '_light_' + leftLight + '.png'); }
+        else { $('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_' + rightDoor + '_light_' + rightLight + '.png'); }
 
-    updatePowerUsage();
-    state ? $(".light-on").get(0).play() : $(".light-on").get(0).pause();
+        updatePowerUsage();
+        state ? $(".light-on").get(0).play() : $(".light-on").get(0).pause();
 
-    if ((pos == 'left') && state && rooms['safe'].b) { $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_bonny_right_door_scare.png'); }
-    else if ((pos == 'right') && state && rooms['safe'].c) { $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_chika_left_door_scare.png'); }
-    else {
-        $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_' + leftLight + '_right_light_' + rightLight + '.png');
+        if ((pos == 'left') && state && rooms['safe'].b) { $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_bonny_right_door_scare.png'); }
+        else if ((pos == 'right') && state && rooms['safe'].c) { $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_chika_left_door_scare.png'); }
+        else {
+            $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_' + leftLight + '_right_light_' + rightLight + '.png');
+        }
     }
 }
 
 
 
+//all camera activity
+//================
 function cameraState() {
     console.log('Camera clicked!');
     cameraMode ? cameraDown() : cameraUp();
@@ -411,45 +380,7 @@ function cameraDown() {
     }, 500);
 }
 
-function bonnieScare() {
 
-}
-
-function bonnieAttackIfClosed() {
-
-
-}
-
-function disableBonnie() {
-
-}
-
-// function disableButtons() {
-//     $('.left-door-switch').hide();
-//     $('.right-door-switch').hide();
-//     $('.control').hide();
-//     $('.toggle-camera').hide();
-// }
-
-function removeDoors() {
-
-}
-
-function powerOutAttacked() {
-    if (power === 0) {
-        return true
-    } else {
-        return false
-    }
-}
-
-function powerOutFreddy() {
-    if(powerOutAttacked() === true) {
-        disableButtons();
-        $('#main-screen').css('background-image', 'url()');
-        menu();
-    }
-}
 
 function transitionScreen(night) {
     $('.container:not(#start-screen)').addClass('animate-out');
@@ -489,8 +420,8 @@ function continueGame() {
 
 
 function updateCamImg(path, room) {
-    _currentImgPath = path;
-    _currentImgRoom = room;
+    _currentImgPath = (typeof path == 'undefined' ? _currentImgPath : path);
+    _currentImgRoom = (typeof path == 'undefined' ? _currentImgRoom : room);
     $('#camera-bg1 img').attr('src', _currentImgPath + 'b' + rooms[_currentImgRoom].b + '_c' + rooms[_currentImgRoom].c + '_f' + rooms[_currentImgRoom].f + '.png');
 }
 
@@ -501,9 +432,6 @@ function wait(to, interval) {
 }
 
 function restart() {
-    setTimeout(function() {
-        $("#scare").get(0).pause();
-    }, 4000);
     $("#game-start").get(0).pause();
     $("#ambience2").get(0).pause();
     // setTimeout(function() {
