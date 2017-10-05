@@ -89,7 +89,7 @@ function burnPower() {
     var powerUsage = (leftDoor*2) + (rightDoor*2) + rightLight + leftLight + cameraMode + 1;
     currentUsage += powerUsage;
     if (currentUsage >= _perPowerUsage) {
-        power -= 1;
+        power -= 10;
         $('#power-counter').html(power);
         currentUsage = 0;
 
@@ -97,15 +97,19 @@ function burnPower() {
             console.log('GAME LOSE ->> Out of power');
             gameover = true;
             $('.to-hide').css('display', 'none');
-            $(".door-on").get(0).play();
+            $("#powerout-sound").get(0).play();
             $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_power_0.png');
 
             $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
             $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
             setTimeout(function () {
                 $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_powerdown_foxy.gif');
+                $("#powerout-jingle").get(0).play();
             }, 2000);
-            restart();
+            setTimeout(function() {
+                $("#powerout-jingle").get(0).pause();
+                restart();
+            }, 11000);
         }
     }
 }
@@ -203,6 +207,7 @@ function bonnieAI() {
             endGame = true;
             gameover = true;
             console.log('Bonnie attacked!');
+            $("#scare").get(0).play();
             restart();
         }
     }
@@ -274,6 +279,7 @@ function chickAI() {
             endGame = true;
             gameover = true;
             console.log('Chick attacked!');
+            $("#scare").get(0).play();
             restart();
         }
     }
@@ -488,8 +494,13 @@ function updateCamImg(path, room) {
     $('#camera-bg1 img').attr('src', _currentImgPath + 'b' + rooms[_currentImgRoom].b + '_c' + rooms[_currentImgRoom].c + '_f' + rooms[_currentImgRoom].f + '.png');
 }
 
+function wait(to, interval) {
+    setTimeout(function() {
+        $('.background .main-screen').attr('src', to);
+    }, interval);
+}
+
 function restart() {
-    $("#scare").get(0).play();
     setTimeout(function() {
         $("#scare").get(0).pause();
     }, 4000);
