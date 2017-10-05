@@ -97,6 +97,7 @@ function burnPower() {
             console.log('GAME LOSE ->> Out of power');
             gameover = true;
             $('.to-hide').css('display', 'none');
+            $(".door-on").get(0).play();
             $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_power_0.png');
 
             $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
@@ -104,6 +105,7 @@ function burnPower() {
             setTimeout(function () {
                 $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_powerdown_foxy.gif');
             }, 2000);
+            restart();
         }
     }
 }
@@ -143,7 +145,7 @@ function bonnieAI() {
     var roomPath = ['1a', '1b', '3', '5', '2b', 'safe'];
     var currentRoom = 0;
     var endGame = false;
-    
+
     var tick = function () {
         if (!endGame && !gameover) {
             movePower += rnd(10);
@@ -201,6 +203,7 @@ function bonnieAI() {
             endGame = true;
             gameover = true;
             console.log('Bonnie attacked!');
+            restart();
         }
     }
 
@@ -271,6 +274,7 @@ function chickAI() {
             endGame = true;
             gameover = true;
             console.log('Chick attacked!');
+            restart();
         }
     }
 
@@ -482,6 +486,28 @@ function updateCamImg(path, room) {
     _currentImgPath = path;
     _currentImgRoom = room;
     $('#camera-bg1 img').attr('src', _currentImgPath + 'b' + rooms[_currentImgRoom].b + '_c' + rooms[_currentImgRoom].c + '_f' + rooms[_currentImgRoom].f + '.png');
+}
+
+function restart() {
+    $("#scare").get(0).play();
+    setTimeout(function() {
+        $("#scare").get(0).pause();
+    }, 4000);
+    $("#game-start").get(0).pause();
+    $("#ambience2").get(0).pause();
+    // setTimeout(function() {
+    //     $('.background .main-screen').addClass('animate-out');
+    // }, 4000);
+    setTimeout(function() {
+        $('.background .main-screen').attr('src', 'resources/img/game/bonnie_gameover.png');
+        $('.background .main-screen').addClass('animate-in');
+    }, 4500);
+    setTimeout(function() {
+        $('.background .main-screen').addClass('animate-out');
+    }, 19500);
+    setTimeout(function() {
+        $(location).attr('href', '/');
+    }, 20500);
 }
 
 $('document').ready(function() {
