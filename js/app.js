@@ -23,7 +23,7 @@ var levelCode = Math.floor((Math.random() * 10) + 1); // random 1 to 10 ** how f
 
 
 // reset
-function init() {
+function reset() {
     time = 172;
     jumpReady = false;
     powerOutAttacked = false;
@@ -36,7 +36,7 @@ function init() {
 }
 
 function gamestart() {
-    updateTime();
+    initGameTime();
     toggleLeftLight();
     toggleRightLight();
     updatePowerUsage();
@@ -45,12 +45,27 @@ function gamestart() {
     $("#ambience2").get(0).play();
 }
 
-function updateTime() {
-    if (time >= 0) {
-        setInterval(function() {
-            time--;
-            console.log(time)
-        }, 3000);
+
+var _oneHour = 860;
+var currentTime = 0;
+
+var _perPowerUsage = 150;
+var currentUsage = 0;
+
+function initGameTime() {
+    setInterval(function () {
+        currentTime += 1;
+        burnPower();
+    }, 100);
+}
+
+function burnPower() {
+    var powerUsage = (leftDoor*2) + (rightDoor*2) + rightLight + leftLight + cameraMode + 1;
+    currentUsage += powerUsage;
+    if (currentUsage >= _perPowerUsage) {
+        power -= 1;
+        $('#power-counter').html(power);
+        currentUsage = 0;
     }
 }
 
@@ -70,14 +85,14 @@ function updateHour() {
 function updatePowerUsage() {
     powerUsage = leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1;
     $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
-    decrementPower = 15000 / powerUsage;
-    console.log(powerUsage, decrementPower);
+    //decrementPower = 15000 / powerUsage;
+    //console.log(powerUsage, decrementPower);
     // clearInterval(powerInterval);
-    powerInterval = setInterval(function() {
-        console.log("Toggled. Power interval updated: ", decrementPower);
-        power--;
-        $('#power-counter').html(power);
-    }, decrementPower);
+    //powerInterval = setInterval(function() {
+    //    console.log("Toggled. Power interval updated: ", decrementPower);
+    //    power--;
+    //    $('#power-counter').html(power);
+    //}, decrementPower);
     // $('#usage-counter img').attr('src', 'resources/img/game/batt_usage_'+powerUsage+'.png');
     // setInterval(function() {
     //     console.log(decrementPower);
@@ -225,7 +240,7 @@ function cameraUp() {
         // $('#camera-bg2 img').css('opacity', 0);
         console.log('End cameraState function..');
         $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
-    }, 600);
+    }, 500);
 }
 
 function cameraDown() {
@@ -240,7 +255,7 @@ function cameraDown() {
         // $('#camera-bg1 img').attr('src', activeCamImg);
         // $('#camera-bg2 img').css('opacity', 0);
         console.log('End cameraState function..');
-    }, 600);
+    }, 500);
 }
 
 function bonnieScare() {
@@ -324,7 +339,7 @@ function continueGame() {
 $('document').ready(function() {
     console.log('DOM is loaded...');
     if (location.pathname === '/main.html') {
-        init();
+        reset();
         // show which night and game start
         transitionScreen(night);
 
