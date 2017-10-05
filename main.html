@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>One Night at Greddy's</title>
-    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&subset=latin,greek" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Press+Start+2P&subset=latin,greek" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
@@ -23,20 +23,20 @@
 
         <!-- background -->
         <div class="background">
-            <a href="javascript:muteCall();"><img class="mute-call" src="resources/img/game/mute_call.png" alt=""></a>
+            <a href="javascript:muteCall();" class="to-hide"><img class="mute-call" src="resources/img/game/mute_call.png" alt=""></a>
             <!-- <img class="main-screen transition" src="resources/img/transition_screen.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;"> -->
             <img class="main-screen" src="resources/img/rooms/safe_room/safe_room_left_light_0_right_light_0.png" style="height: 100vh; width: 100vw; background-size: cover; background-repeat: no-repeat;">
-            <img id="spinning-fan" src="resources/img/game/spinning_fan.gif">
+            <img id="spinning-fan" class="to-hide" src="resources/img/game/spinning_fan.gif">
         </div>
 
         <!-- Top Menu-->
-        <div class="top-menu">
-            <h2 class="show-hour"><span id="hour-counter">12</span> am</h2>
+        <div class="top-menu to-hide">
+            <h2 class="show-hour"><span id="hour-counter">12</span> AM</h2>
             <h2 class="show-night">Night <span id="night-counter">1</span></h2>
         </div>
 
         <!-- Left Door Switch-->
-        <div class="left">
+        <div class="left to-hide">
             <div class="left-door">
                 <img src="resources/img/doors/left_door_1.png" alt="">
             </div>
@@ -52,7 +52,7 @@
         </div>
 
         <!--  Right Door Switch-->
-        <div class="right">
+        <div class="right to-hide">
             <div class="right-door">
                 <img src="resources/img/doors/right_door_1.png" alt="">
             </div>
@@ -121,7 +121,7 @@
         <div id="camera-bg2"><img src="" alt="" class="display-0"></div>
 
         <!-- control-menu -->
-        <div class="control">
+        <div class="control to-hide">
             <div class="control-usage">
                 <p class="power">Power left: <span id="power-counter">100</span>%</p>
                 <p class="usage">Usage: <span id="usage-counter"><img src="resources/img/game/batt_usage_1.png" alt=""></span></p>
