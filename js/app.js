@@ -34,7 +34,7 @@ var foxyStatus = 0;
 var levelCode = Math.floor((Math.random() * 10) + 1); // random 1 to 10 ** how fast the anematronics move in seconds
 
 //time and power
-var _oneHour = 86; //ticks per hour
+var _oneHour = 860; //ticks per hour
 var currentTime = 0;
 var _perPowerUsage = 150; //ticks per powerbar
 var currentUsage = 0;
