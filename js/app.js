@@ -1,11 +1,12 @@
-var time = 172; // Game seconds
 var hour = 0;
 var hourInterval = null; // 1 game hour == 86 rl seconds = 28 game seconds
 var jumpReady = false;
 var leftDoor = 0;
 var leftLight = 0;
+var leftDisabled = 0;
 var rightDoor = 0;
 var rightLight = 0;
+var rightDisabled = 0;
 var cameraMode = 0;
 var showStage = [1, 1, 1];
 var activeCamImg;
@@ -33,7 +34,7 @@ var foxyStatus = 0;
 var levelCode = Math.floor((Math.random() * 10) + 1); // random 1 to 10 ** how fast the anematronics move in seconds
 
 //time and power
-var _oneHour = 860; //ticks per hour
+var _oneHour = 86; //ticks per hour
 var currentTime = 0;
 var _perPowerUsage = 150; //ticks per powerbar
 var currentUsage = 0;
@@ -43,13 +44,14 @@ var _currentImgPath = '/resources/img/rooms/1a_show_stage/cam_1a_';
 var _currentImgRoom = '1a';
 
 
-var bonnie = new moveAI('Bonnie', 'b', 'left', 'resources/img/rooms/safe_room/bonnie_jumpscare.gif', ['1a', '1b', '3', '5', '2b', 'safe']);
-var chick = new moveAI('Chick', 'c', 'right', 'resources/img/rooms/safe_room/chika_jumpscare.gif', ['1a', '1b', '7', '4a', '4b', 'safe']);
+var bonnie = new moveAI('Bonnie', 'b', 'left', 'resources/img/rooms/safe_room/bonnie_jumpscare.gif', ['1a', '1b', '3', '6', '5', '2b', 'safe']);
+var chick = new moveAI('Chick', 'c', 'right', 'resources/img/rooms/safe_room/chika_jumpscare.gif', ['1a', '1b', '7', '6', '4a', '4b', 'safe']);
 var gameEnd = false;
+
+var motioLeftDoor;
 
 // reset
 function reset() {
-    time = 172;
     jumpReady = false;
     powerOutAttacked = false;
     alreadyAttacked = false;
@@ -88,34 +90,46 @@ function burnPower() {
     var powerUsage = (leftDoor*2) + (rightDoor*2) + rightLight + leftLight + cameraMode + 1;
     currentUsage += powerUsage;
     if (currentUsage >= _perPowerUsage) {
-        power -= 10;
+        power -= 1;
         $('#power-counter').html(power);
         currentUsage = 0;
 
         if (power == 0) {
             console.log('GAME LOSE ->> Out of power');
             gameEnd = true;
-            $('.to-hide').css('display', 'none');
-            $("#powerout-sound").get(0).play();
-            $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_power_0.png');
-
-            $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
-            $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
+            //deactive door
+            if (rightDoor) { rightDoor = 0; toggleDoor('right', rightDoor); }
+            if (leftDoor) { leftDoor = 0; toggleDoor('left', leftDoor); }
+            //power out
             setTimeout(function () {
-                $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_powerdown_foxy.gif');
+                $('.to-hide').css('display', 'none');
+                $('.main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_power_0.png');
+
+                $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
+                $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
+
+                $('#powerout-sound').get(0).play();
+                $('#call').get(0).pause();
+                $('#game-start').get(0).pause();
+                $('#ambience2').get(0).pause();
+            }, 600);
+            
+            setTimeout(function () {
+                $('.main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_powerdown_foxy.gif');
                 $("#powerout-jingle").get(0).play();
-            }, 2000);
+            }, 12000);
+
+            setTimeout(function () {
+                $('.main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_powerdown_end.gif');
+                $("#powerout-jingle").get(0).pause();
+            }, 26000);
 
             setTimeout(function() {
-                $("#powerout-jingle").get(0).pause();
-
-                setTimeout(function () {
-                    $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/power_down_freddy_scare.gif');
-                    //play sounds
-                    setTimeout(function () { $("#scare").get(0).play(); }, 1000);
-                    setTimeout(function () { $("#scare").get(0).pause(); restart(); }, 4000);
-                }, 2000);
-            }, 12000);
+                $('.main-screen').attr('src', 'resources/img/rooms/safe_room/power_down_freddy_scare.gif');
+                //play sounds
+                setTimeout(function () { $("#scare").get(0).play(); }, 600);
+                setTimeout(function () { $("#scare").get(0).pause(); restart(); }, 1000);
+            }, (28000 + (rnd(5)*1000)));
         }
     }
 }
@@ -130,11 +144,16 @@ function burnTime() {
 
         if (hour == 6) {
             console.log('GAME WIN ->> Proceed next night');
-            gameover = true;
+            gameEnd = true;
             $('.to-hide').css('display', 'none');
             $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
             $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
-            $('.background .main-screen').attr('src', 'resources/img/game/5_to_6.gif');
+            $('.main-screen').attr('src', 'resources/img/game/5_to_6.gif');
+
+            //sounds
+            $('#call').get(0).pause();
+            $('#win-sound').get(0).play();
+            setTimeout(function () { $('#win-cheer').get(0).play(); }, 2000);
         }
     }
 }
@@ -149,7 +168,7 @@ function updatePowerUsage() {
 //default movingAI
 function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
     var movePower = 0;
-    var maxMovePower = 300;
+    var maxMovePower = 2000;
     var attackPower = 0;
     var maxAttackPower = 300;
     var roomPath = paraPath;
@@ -158,16 +177,27 @@ function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
     var scareScreen = paraScare;
     var scareDoor = paraDoor;
     var currentRoom = 0;
+    var insideRoom = 0;
+    var insideRoomPower = 0;
+    var flipCam = 0;
     var endGame = false;
 
     var tick = function () {
         if (!endGame && !gameEnd) {
-            movePower += rnd(10);
-            //check if ai at room
-            if (roomPath[currentRoom] == 'safe') {
+            movePower += rnd(20);
+            //check if in room
+            if (insideRoom) {
+                if (flipCam) { scare(); }
+                else {
+                    flipCam = cameraMode;
+                    insideRoomPower += rnd(10);
+                    if (insideRoomPower >= 1000) { scare(); }
+                }
+            }
+            else if (roomPath[currentRoom] == 'safe') {
                 attack();
             }
-            else if (movePower >= 500) {
+            else if (movePower >= maxMovePower) {
                 move();
             }
         }
@@ -192,8 +222,12 @@ function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
                 currentRoom = newRoom;
                 rooms[roomPath[currentRoom]][myId] = 1;
                 rooms[roomPath[currentRoom]].occupy = 1;
-
+                //play sound
+                $('#move-sound').get(0).pause();
+                $('#move-sound').get(0).currentTime = 0;
+                $('#move-sound').get(0).play();
                 movePower = 0;
+
                 //if (cameraMode) { updateCamImg(_currentImgPath, _currentImgRoom); }
                 console.log(myName + ' moved to', roomPath[currentRoom]);
             }
@@ -209,7 +243,7 @@ function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
         if (!doorStatus) {
             console.log(myName + ' preparing to attack:', attackPower + '/' + maxAttackPower);
             attackPower += rnd(10);
-            if (attackPower >= maxAttackPower) { scare(); }
+            if (attackPower >= maxAttackPower) { enterOffice(); }
         }
         else {
             console.log(myName + ' attack is blocked');
@@ -218,21 +252,30 @@ function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
         }
     }
 
+    var enterOffice = function () {
+        //set attributes
+        insideRoom = 1;
+        rooms[roomPath[currentRoom]][myId] = 0;
+        rooms[roomPath[currentRoom]].occupy = 0;
+        
+        if (myId == 'b') { leftDisabled = 1 }
+        if (myId == 'c') { rightDisabled = 1 }
+        console.log(myName + ' inside office!');
+    }
+
     var scare = function () {
         if (!cameraMode) {
             //set displays
             $('.to-hide').css('display', 'none');
-            $('.background .main-screen').attr('src', scareScreen);
+            $('.main-screen').attr('src', scareScreen);
 
             //play sounds
             $("#scare").get(0).play();
             setTimeout(function () { $("#scare").get(0).pause(); }, 4000);
 
-            //set attributes
             endGame = true;
             gameEnd = true;
             console.log(myName + ' attacked!');
-
             restart();
         }
     }
@@ -274,18 +317,19 @@ function muteCall() {
 
 //all door activity
 //================
+var doorTimeout;
 function toggleLeftDoor() {
-    leftDoor ? leftDoor = 0 : leftDoor = 1;
-    toggleDoor('left', leftDoor);
-    //$('.left-switch > img').attr('src', 'resources/img/rooms/left_switch_door_' + leftDoor + '_light_' + leftLight + '.png');
-    //$('.left-door > img').attr('src', 'resources/img/doors/left_door_' + leftDoor + '.gif');
+    if (!leftDisabled) {
+        leftDoor ? leftDoor = 0 : leftDoor = 1;
+        toggleDoor('left', leftDoor);
+    }
 }
 
 function toggleRightDoor() {
-    rightDoor ? rightDoor = 0 : rightDoor = 1;
-    toggleDoor('right', rightDoor);
-    //$('.right-switch > img').attr('src', 'resources/img/rooms/right_switch_door_' + rightDoor + '_light_' + rightLight + '.png');
-    //$('.right-door > img').attr('src', 'resources/img/doors/right_door_' + rightDoor + '.gif');
+    if (!rightDisabled) {
+        rightDoor ? rightDoor = 0 : rightDoor = 1;
+        toggleDoor('right', rightDoor);
+    }
 }
 
 function toggleDoor(location, door) {
@@ -295,6 +339,9 @@ function toggleDoor(location, door) {
     $('.door-sound').get(0).play();
     $('.' + location + '-switch > img').attr('src', 'resources/img/rooms/' + location + '_switch_door_' + door + '_light_' + ((location=='right') ? rightLight : leftLight) + '.png');
     $('.' + location + '-door > img').attr('src', 'resources/img/doors/' + location + '_door_' + door + '.gif');
+    //doorTimeout = setTimeout(function () {
+    //    $('.' + location + '-door > img').attr('src', 'resources/img/doors/' + location + '_door_' + ((door) ? 0 : 1) + '.png');
+    //}, 1000);
 }
 
 
@@ -303,30 +350,42 @@ function toggleDoor(location, door) {
 //================
 function toggleLeftLight() {
     $('#left-light-toggle').mousedown(function () {
-        leftLight = 1;
-        processLightActivty(leftLight, 'left');
+        if (!leftDisabled) {
+            leftLight = 1;
+            processLightActivty(leftLight, 'left');
+        }
     });
 
-    $('#left-light-toggle').mouseup(function() {
-        leftLight = 0;
-        processLightActivty(leftLight, 'left');
+    $('#left-light-toggle').mouseup(function () {
+        if (!leftDisabled) {
+            leftLight = 0;
+            processLightActivty(leftLight, 'left');
+        }
     }).mouseleave(function () {
-        leftLight = 0;
-        processLightActivty(leftLight, 'left');
+        if (!leftDisabled) {
+            leftLight = 0;
+            processLightActivty(leftLight, 'left');
+        }
     });
 }
 
 function toggleRightLight() {
-    $('#right-light-toggle').mousedown(function() {
-        rightLight = 1;
-        processLightActivty(rightLight, 'right');
+    $('#right-light-toggle').mousedown(function () {
+        if (!rightDisabled) {
+            rightLight = 1;
+            processLightActivty(rightLight, 'right');
+        }
     })
-    $('#right-light-toggle').mouseup(function() {
-        rightLight = 0;
-        processLightActivty(rightLight, 'right');
+    $('#right-light-toggle').mouseup(function () {
+        if (!rightDisabled) {
+            rightLight = 0;
+            processLightActivty(rightLight, 'right');
+        }
     }).mouseleave(function () {
-        rightLight = 0;
-        processLightActivty(rightLight, 'right');
+        if (!rightDisabled) {
+            rightLight = 0;
+            processLightActivty(rightLight, 'right');
+        }
     });
 }
 
@@ -338,10 +397,10 @@ function processLightActivty(state, pos) {
         updatePowerUsage();
         state ? $(".light-on").get(0).play() : $(".light-on").get(0).pause();
 
-        if ((pos == 'left') && state && rooms['safe'].b) { $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_bonny_right_door_scare.png'); }
-        else if ((pos == 'right') && state && rooms['safe'].c) { $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_chika_left_door_scare.png'); }
+        if ((pos == 'left') && state && rooms['safe'].b) { $('.main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_bonny_right_door_scare.png'); }
+        else if ((pos == 'right') && state && rooms['safe'].c) { $('.main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_chika_left_door_scare.png'); }
         else {
-            $('.background .main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_' + leftLight + '_right_light_' + rightLight + '.png');
+            $('.main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_left_light_' + leftLight + '_right_light_' + rightLight + '.png');
         }
     }
 }
@@ -350,17 +409,21 @@ function processLightActivty(state, pos) {
 
 //all camera activity
 //================
+var camTimeout;
 function cameraState() {
     console.log('Camera clicked!');
+    clearTimeout(camTimeout);
     cameraMode ? cameraDown() : cameraUp();
+    updatePowerUsage();
+    $('.camera-toggle').get(0).pause();
+    $('.camera-toggle').get(0).currentTime = 0;
+    $('.camera-toggle').get(0).play();
 }
 
 function cameraUp() {
     cameraMode = 1;
-    updatePowerUsage();
-    $('.camera-toggle').get(0).play();
     $('#camera-bg2 img').attr('src', 'resources/img/cams/camera_mode_1.gif').toggleClass('display-1');
-    setTimeout(function() {
+    camTimeout = setTimeout(function () {
         $('.camera-menu').removeClass('display-0, display-1').addClass('display-1');
         updateCamImg(_currentImgPath, _currentImgRoom);
         console.log('End cameraState function..');
@@ -370,11 +433,9 @@ function cameraUp() {
 
 function cameraDown() {
     cameraMode = 0;
-    updatePowerUsage();
-    $('.camera-toggle').get(0).play();
     $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
     $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-1').attr('src', 'resources/img/cams/camera_mode_0.gif');
-    setTimeout(function() {
+    camTimeout = setTimeout(function () {
         $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
         console.log('End cameraState function..');
     }, 500);
@@ -419,15 +480,28 @@ function continueGame() {
 }
 
 
-function updateCamImg(path, room) {
+function updateCamImg(path, room, filetype) {
     _currentImgPath = (typeof path == 'undefined' ? _currentImgPath : path);
     _currentImgRoom = (typeof path == 'undefined' ? _currentImgRoom : room);
-    $('#camera-bg1 img').attr('src', _currentImgPath + 'b' + rooms[_currentImgRoom].b + '_c' + rooms[_currentImgRoom].c + '_f' + rooms[_currentImgRoom].f + '.png');
+    var extension = (typeof filetype == 'undefined' ? 'png' : filetype);
+    if (room == '6') {
+        $('#camera-bg1 img').attr('src', _currentImgPath);
+    }
+    else {
+        $('#camera-bg1 img').attr('src', _currentImgPath + 'b' + rooms[_currentImgRoom].b + '_c' + rooms[_currentImgRoom].c + '_f' + rooms[_currentImgRoom].f + '.' + extension);
+    }
+}
+
+function cameraToggle(ele) {
+    $('#camera-id').html($(ele).data('camname'));
+    $('.camera-menu ul li').removeClass('active');
+    $(ele).parent().toggleClass('active');
+    $('.camera-cycle').get(0).play();
 }
 
 function wait(to, interval) {
     setTimeout(function() {
-        $('.background .main-screen').attr('src', to);
+        $('.main-screen').attr('src', to);
     }, interval);
 }
 
@@ -435,18 +509,18 @@ function restart() {
     $("#game-start").get(0).pause();
     $("#ambience2").get(0).pause();
     // setTimeout(function() {
-    //     $('.background .main-screen').addClass('animate-out');
+    //     $('.main-screen').addClass('animate-out');
     // }, 4000);
     setTimeout(function() {
-        $('.background .main-screen').attr('src', 'resources/img/game/bonnie_gameover.png');
-        $('.background .main-screen').addClass('animate-in');
+        $('.main-screen').attr('src', 'resources/img/game/bonnie_gameover.png');
+        $('.main-screen').addClass('animate-in');
     }, 4500);
     setTimeout(function() {
-        $('.background .main-screen').addClass('animate-out');
-    }, 19500);
+        $('.main-screen').addClass('animate-out');
+    }, 9500);
     setTimeout(function() {
         $(location).attr('href', '/');
-    }, 20500);
+    }, 14500);
 }
 
 $('document').ready(function() {
@@ -457,34 +531,13 @@ $('document').ready(function() {
         transitionScreen(night);
 
         $('#cam1a').click(function() {
-            //cam1aClicks++;
-            //if (cam1aClicks >= 3 && cam1aClicks < 5 && showStage[0] == 1 && showStage[1] == 1 && showStage[2] == 1) {
-            //    console.log('Cam1a clicks: ', cam1aClicks);
-            //    activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_turn.png';
-            //    $('#camera-id').html($(this).data('camname'));
-            //    $('#camera-bg1 img').attr('src', activeCamImg);
-            //    $('.camera-menu ul li').removeClass('active');
-            //    $(this).parent().toggleClass('active');
-            //    $('.camera-cycle').get(0).play();
-            //} else {
-            //activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b' + rooms['1a'].b + '_c' + rooms['1a'].c + '_f' + rooms['1a'].f + '.png';
-            updateCamImg('/resources/img/rooms/1a_show_stage/cam_1a_','1a');
-                $('#camera-id').html($(this).data('camname'));
-                //$('#camera-bg1 img').attr('src', activeCamImg);
-                $('.camera-menu ul li').removeClass('active');
-                $(this).parent().toggleClass('active');
-                $('.camera-cycle').get(0).play();
-            //}
+            updateCamImg('/resources/img/rooms/1a_show_stage/cam_1a_', '1a');
+            cameraToggle(this);
         }),
 
         $('#cam1b').click(function() {
-            //activeCamImg = '/resources/img/rooms/1b_dining_area/1b_b' + rooms['1b'].b + '_c' + rooms['1b'].c + '_f' + rooms['1b'].f + '.png';
             updateCamImg('/resources/img/rooms/1b_dining_area/1b_','1b');
-            $('#camera-id').html($(this).data('camname'));
-            //$('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            cameraToggle(this);
         }),
         $('#cam1c').click(function() {
             activeCamImg = '/resources/img/rooms/1c_pirate_cove/1c_b0_c0_f0.png';
@@ -495,76 +548,43 @@ $('document').ready(function() {
             $('.camera-cycle').get(0).play();
         }),
         $('#cam2a').click(function() {
-            activeCamImg = '/resources/img/rooms/2a_west_hall/2a_b0_c0_f0.gif';
-            $('#camera-id').html($(this).data('camname'));
-            $('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            updateCamImg('/resources/img/rooms/2a_west_hall/2a_', '2a', 'gif');
+            cameraToggle(this);
         }),
         $('#cam2b').click(function() {
-            //activeCamImg = '/resources/img/rooms/2b_west_hall_corner/2b_b' + rooms['1b'].b + '_c' + rooms['1b'].c + '_f' + rooms['1b'].f + '.png';
             updateCamImg('/resources/img/rooms/2b_west_hall_corner/2b_','2b');
-            $('#camera-id').html($(this).data('camname'));
-            //$('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            cameraToggle(this);
         }),
         $('#cam3').click(function() {
-            //activeCamImg = '/resources/img/rooms/3_supply_closet/3_b' + rooms['1b'].b + '_c' + rooms['1b'].c + '_f' + rooms['1b'].f + '.png';
             updateCamImg('/resources/img/rooms/3_supply_closet/3_','3');
-            $('#camera-id').html($(this).data('camname'));
-            //$('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            cameraToggle(this);
         }),
         $('#cam4a').click(function() {
-            //activeCamImg = '/resources/img/rooms/4a_east_hall/4a_b0_c0_f0.png';
             updateCamImg('/resources/img/rooms/4a_east_hall/4a_', '4a');
-            $('#camera-id').html($(this).data('camname'));
-            //$('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            cameraToggle(this);
         }),
         $('#cam4b').click(function() {
-            //activeCamImg = '/resources/img/rooms/4b_east_hall_corner/4b_b0_c0_f0.png';
             updateCamImg('/resources/img/rooms/4b_east_hall_corner/4b_', '4b');
-
-            $('#camera-id').html($(this).data('camname'));
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            cameraToggle(this);
         }),
         $('#cam5').click(function() {
-            //activeCamImg = '/resources/img/rooms/5_backstage/5_b' + rooms['1b'].b + '_c' + rooms['1b'].c + '_f' + rooms['1b'].f + '.png';
             updateCamImg('/resources/img/rooms/5_backstage/5_','5');
-            $('#camera-id').html($(this).data('camname'));
-            //$('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            cameraToggle(this);
         }),
         $('#cam6').click(function() {
-            activeCamImg = '/resources/img/rooms/6_kitchen/6_b0_c0_f0.png';
-            $('#camera-id').html($(this).data('camname'));
-            $('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            updateCamImg('/resources/img/rooms/6_kitchen/6_b0_c0_f0.png', '6');
+            cameraToggle(this);
         })
         $('#cam7').click(function() {
-            //activeCamImg = '/resources/img/rooms/7_restroom/7_b0_c0_f0.png';
             updateCamImg('/resources/img/rooms/7_restroom/7_', '7');
-
-            $('#camera-id').html($(this).data('camname'));
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
+            cameraToggle(this);
         })
 
-
+        //init door
+        //motioLeftDoor = new Motio($('.left-door')[0], {
+        //    fps: 29,
+        //    frames: 14,
+        //    vertical: true
+        //});
     }
 });

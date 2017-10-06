@@ -8,13 +8,15 @@
     <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
-    <audio id="game-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop" volume="0.1"></audio>
+    <audio preload="auto" id="game-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop" volume="0.1"></audio>
     <audio preload="auto" id="call" src="resources/audio/voiceover1c.wav"></audio>
-    <audio preload="auto" id="ambience2" src="resources/audio/ambience2.wav" loop="loop"></audio>
+    <audio preload="auto" id="ambience2" src="resources/audio/ambience2.wav" loop="loop" volume="0.5"></audio>
     <audio preload="auto" id="scare" src="resources/audio/XSCREAM.wav"></audio>
     <audio preload="auto" id="powerout-sound" src="resources/audio/powerdown.wav"></audio>
     <audio preload="auto" id="powerout-jingle" src="resources/audio/music box.wav" loop="loop"></audio>
-
+    <audio preload="auto" id="move-sound" src="resources/audio/deep steps.wav"></audio>
+    <audio preload="auto" id="win-sound" src="resources/audio/chimes 2.wav"></audio>
+    <audio preload="auto" id="win-cheer" src="resources/audio/CROWD_SMALL_CHIL_EC049202.wav"></audio>
 
     <div class="transition animate-in">
         <img src="/resources/img/game/transition_screen.png" alt="">
@@ -45,7 +47,7 @@
         <!-- Left Door Switch-->
         <div class="left to-hide">
             <div class="left-door">
-                <img src="resources/img/doors/left_door_1.png" alt="">
+                <img src="resources/img/doors/left_door_1.png" class="default" alt="">
             </div>
             <div class="left-switch">
                 <img src="resources/img/rooms/left_switch_door_0_light_0.png" alt="" usemap="left-door-switch">
