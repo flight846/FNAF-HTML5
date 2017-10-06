@@ -525,7 +525,7 @@ function restart() {
         $('.main-screen').addClass('animate-out');
     }, 9500);
     setTimeout(function() {
-        $(location).attr('href', '/');
+        $(location).attr('href', 'index.html');
     }, 14500);
 }
 
