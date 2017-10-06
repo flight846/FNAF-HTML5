@@ -40,7 +40,7 @@ var _perPowerUsage = 150; //ticks per powerbar
 var currentUsage = 0;
 
 //cameraState
-var _currentImgPath = '/resources/img/rooms/1a_show_stage/cam_1a_';
+var _currentImgPath = 'resources/img/rooms/1a_show_stage/cam_1a_';
 var _currentImgRoom = '1a';
 
 
@@ -293,7 +293,7 @@ function rnd(length) {
 function addNight() {
     $('.container:not(#start-screen)').addClass('animate-out');
     // change transition image
-    $('.transition img').src('/resources')
+    $('.transition img').src('resources')
     // animate in transition screen
 
 
@@ -426,7 +426,7 @@ function cameraUp() {
     camTimeout = setTimeout(function () {
         $('.camera-menu').removeClass('display-0, display-1').addClass('display-1');
         updateCamImg(_currentImgPath, _currentImgRoom);
-        console.log('End cameraState function..');
+        console.log('Cam up!');
         $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
     }, 500);
 }
@@ -437,7 +437,7 @@ function cameraDown() {
     $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-1').attr('src', 'resources/img/cams/camera_mode_0.gif');
     camTimeout = setTimeout(function () {
         $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
-        console.log('End cameraState function..');
+        console.log('Cam down!');
     }, 500);
 }
 
@@ -452,7 +452,7 @@ function transitionScreen(night) {
 
     setTimeout(function() {
         $('.transition').removeClass('animate-out');
-        $('.transition img').attr('src', '/resources/img/game/transition-fade.gif');
+        $('.transition img').attr('src', 'resources/img/game/transition-fade.gif');
         $('.transition h2').toggleClass('display-1');
         $('.transition #night-count').html(night);
         $('.camera-cycle').get(0).play();
@@ -468,7 +468,7 @@ function transitionScreen(night) {
         gamestart();
     }, 6900);
 
-    activeCamImg = '/resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
+    activeCamImg = 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
 
 }
 
@@ -486,9 +486,15 @@ function updateCamImg(path, room, filetype) {
     var extension = (typeof filetype == 'undefined' ? 'png' : filetype);
     if (room == '6') {
         $('#camera-bg1 img').attr('src', _currentImgPath);
+        //check sounds
+        if (rooms['6'].b) { $('#kitchen-b').get(0).play(); }
+        else if (rooms['6'].c) { $('#kitchen-c').get(0).play(); }
     }
     else {
         $('#camera-bg1 img').attr('src', _currentImgPath + 'b' + rooms[_currentImgRoom].b + '_c' + rooms[_currentImgRoom].c + '_f' + rooms[_currentImgRoom].f + '.' + extension);
+        //check sounds
+        $('#kitchen-b').get(0).pause();
+        $('#kitchen-c').get(0).pause();
     }
 }
 
@@ -525,66 +531,66 @@ function restart() {
 
 $('document').ready(function() {
     console.log('DOM is loaded...');
-    if (location.pathname === '/main.html') {
-        reset();
-        // show which night and game start
-        transitionScreen(night);
 
-        $('#cam1a').click(function() {
-            updateCamImg('/resources/img/rooms/1a_show_stage/cam_1a_', '1a');
-            cameraToggle(this);
-        }),
+    reset();
+    // show which night and game start
+    transitionScreen(night);
 
-        $('#cam1b').click(function() {
-            updateCamImg('/resources/img/rooms/1b_dining_area/1b_','1b');
-            cameraToggle(this);
-        }),
-        $('#cam1c').click(function() {
-            activeCamImg = '/resources/img/rooms/1c_pirate_cove/1c_b0_c0_f0.png';
-            $('#camera-id').html($(this).data('camname'));
-            $('#camera-bg1 img').attr('src', activeCamImg);
-            $('.camera-menu ul li').removeClass('active');
-            $(this).parent().toggleClass('active');
-            $('.camera-cycle').get(0).play();
-        }),
-        $('#cam2a').click(function() {
-            updateCamImg('/resources/img/rooms/2a_west_hall/2a_', '2a', 'gif');
-            cameraToggle(this);
-        }),
-        $('#cam2b').click(function() {
-            updateCamImg('/resources/img/rooms/2b_west_hall_corner/2b_','2b');
-            cameraToggle(this);
-        }),
-        $('#cam3').click(function() {
-            updateCamImg('/resources/img/rooms/3_supply_closet/3_','3');
-            cameraToggle(this);
-        }),
-        $('#cam4a').click(function() {
-            updateCamImg('/resources/img/rooms/4a_east_hall/4a_', '4a');
-            cameraToggle(this);
-        }),
-        $('#cam4b').click(function() {
-            updateCamImg('/resources/img/rooms/4b_east_hall_corner/4b_', '4b');
-            cameraToggle(this);
-        }),
-        $('#cam5').click(function() {
-            updateCamImg('/resources/img/rooms/5_backstage/5_','5');
-            cameraToggle(this);
-        }),
-        $('#cam6').click(function() {
-            updateCamImg('/resources/img/rooms/6_kitchen/6_b0_c0_f0.png', '6');
-            cameraToggle(this);
-        })
-        $('#cam7').click(function() {
-            updateCamImg('/resources/img/rooms/7_restroom/7_', '7');
-            cameraToggle(this);
-        })
+    $('#cam1a').click(function () {
+        updateCamImg('resources/img/rooms/1a_show_stage/cam_1a_', '1a');
+        cameraToggle(this);
+    }),
 
-        //init door
-        //motioLeftDoor = new Motio($('.left-door')[0], {
-        //    fps: 29,
-        //    frames: 14,
-        //    vertical: true
-        //});
-    }
+    $('#cam1b').click(function () {
+        updateCamImg('resources/img/rooms/1b_dining_area/1b_', '1b');
+        cameraToggle(this);
+    }),
+    $('#cam1c').click(function () {
+        activeCamImg = 'resources/img/rooms/1c_pirate_cove/1c_b0_c0_f0.png';
+        $('#camera-id').html($(this).data('camname'));
+        $('#camera-bg1 img').attr('src', activeCamImg);
+        $('.camera-menu ul li').removeClass('active');
+        $(this).parent().toggleClass('active');
+        $('.camera-cycle').get(0).play();
+    }),
+    $('#cam2a').click(function () {
+        updateCamImg('resources/img/rooms/2a_west_hall/2a_', '2a', 'gif');
+        cameraToggle(this);
+    }),
+    $('#cam2b').click(function () {
+        updateCamImg('resources/img/rooms/2b_west_hall_corner/2b_', '2b');
+        cameraToggle(this);
+    }),
+    $('#cam3').click(function () {
+        updateCamImg('resources/img/rooms/3_supply_closet/3_', '3');
+        cameraToggle(this);
+    }),
+    $('#cam4a').click(function () {
+        updateCamImg('resources/img/rooms/4a_east_hall/4a_', '4a');
+        cameraToggle(this);
+    }),
+    $('#cam4b').click(function () {
+        updateCamImg('resources/img/rooms/4b_east_hall_corner/4b_', '4b');
+        cameraToggle(this);
+    }),
+    $('#cam5').click(function () {
+        updateCamImg('resources/img/rooms/5_backstage/5_', '5');
+        cameraToggle(this);
+    }),
+    $('#cam6').click(function () {
+        updateCamImg('resources/img/rooms/6_kitchen/6_b0_c0_f0.png', '6');
+        cameraToggle(this);
+    })
+    $('#cam7').click(function () {
+        updateCamImg('resources/img/rooms/7_restroom/7_', '7');
+        cameraToggle(this);
+    })
+
+    //init door
+    //motioLeftDoor = new Motio($('.left-door')[0], {
+    //    fps: 29,
+    //    frames: 14,
+    //    vertical: true
+    //});
+
 });
