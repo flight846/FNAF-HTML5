@@ -35,7 +35,7 @@ var foxyStatus = 0;
 var levelCode = Math.floor((Math.random() * 10) + 1); // random 1 to 10 ** how fast the anematronics move in seconds
 
 //time and power
-var _oneHour = 860; //ticks per hour
+var _oneHour = 86; //ticks per hour
 var currentTime = 0;
 var _perPowerUsage = 150; //ticks per powerbar
 var currentUsage = 0;
@@ -146,6 +146,7 @@ function burnTime() {
         if (hour == 6) {
             console.log('GAME WIN ->> Proceed next night');
             gameEnd = true;
+            night++;
             $('.to-hide').css('display', 'none');
             $('.camera-menu').removeClass('display-0, display-1').addClass('display-0');
             $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
@@ -155,6 +156,14 @@ function burnTime() {
             $('#call').get(0).pause();
             $('#win-sound').get(0).play();
             setTimeout(function () { $('#win-cheer').get(0).play(); }, 2000);
+            ++timesPlayed;
+            console.log(timesPlayed);
+            localStorage.setItem('night', String(night));
+            localStorage.removeItem('timesPlayed');
+            localStorage.setItem('timesPlayed', String(timesPlayed));
+            setTimeout(function() {
+                location.reload();
+            }, 10000);
         }
     }
 }
@@ -457,7 +466,7 @@ function transitionScreen(night) {
 
     setTimeout(function() {
         $('.transition').addClass('animate-out');
-    }, 2900);
+    }, 4900);
 
     setTimeout(function() {
         $('.transition').removeClass('animate-out');
@@ -465,29 +474,21 @@ function transitionScreen(night) {
         $('.transition h2').toggleClass('display-1');
         $('.transition #night-count').html(night);
         $('.camera-cycle').get(0).play();
-    }, 4000);
+    }, 6000);
 
     setTimeout(function() {
         $('.transition').addClass('animate-out');
-    }, 6000);
+    }, 8000);
 
     setTimeout(function() {
         $('.container:not(#start-screen)').css('opacity', '1');
         $('.transition').css('display', 'none');
         gamestart();
-    }, 6900);
+    }, 8900);
 
     activeCamImg = 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
 
 }
-
-function continueGame() {
-    if (night > 2) {
-        // show continue game?
-
-    }
-}
-
 
 function updateCamImg(path, room, filetype) {
     _currentImgPath = (typeof path == 'undefined' ? _currentImgPath : path);
@@ -526,10 +527,11 @@ function restart() {
     // setTimeout(function() {
     //     $('.main-screen').addClass('animate-out');
     // }, 4000);
-    timesPlayed++;
+    ++timesPlayed;
+    console.log(timesPlayed);
     localStorage.setItem('night', String(night));
+    localStorage.removeItem('timesPlayed');
     localStorage.setItem('timesPlayed', String(timesPlayed));
-
 
     setTimeout(function() {
         $('.main-screen').attr('src', 'resources/img/game/bonnie_gameover.png');
@@ -541,6 +543,8 @@ function restart() {
     setTimeout(function() {
         $(location).attr('href', 'index.html');
     }, 14500);
+
+    return;
 }
 
 $('document').ready(function() {

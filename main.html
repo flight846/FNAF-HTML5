@@ -147,6 +147,9 @@
             $("#call").get(0).play();
             $('.mute-call').fadeIn();
         }, 9000);
+        var getNight = parseInt(localStorage.getItem('night'));
+        night = getNight || 1;
+        $('#night-counter').html(night);
     </script>
 </body>
 </html>
