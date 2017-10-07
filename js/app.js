@@ -468,8 +468,9 @@ function transitionScreen(night) {
         $('.container:not(#start-screen)').addClass('animate-out');
 
         setTimeout(function() {
-            $('.transition').addClass('animate-out');
-        }, 4900);
+            $('.preloader').addClass('animate-out');
+            $('.transition').addClass('animate-in');
+        }, 14900);
 
         setTimeout(function() {
             $('.transition').removeClass('animate-out');
@@ -477,19 +478,20 @@ function transitionScreen(night) {
             $('.transition h2').toggleClass('display-1');
             $('.transition #night-count').html(night);
             $('.camera-cycle').get(0).play();
-        }, 6000);
+        }, 20000);
 
         setTimeout(function() {
             $('.transition').addClass('animate-out');
-        }, 8000);
+        }, 24000);
 
         setTimeout(function() {
             $('.container:not(#start-screen)').css('opacity', '1');
             $('.transition').css('display', 'none');
             gamestart();
-        }, 7900);
+        }, 24900);
 
     } else {
+        $('.preloader').css('display', 'none');
         $('.transition').css('display', 'none');
         $('.container:not(#start-screen)').css('opacity', '1');
         $('.transition').css('display', 'none');

@@ -26,10 +26,14 @@
     <audio preload="auto" id="kitchen-c" src="resources/audio/OVEN-DRA_2_GEN-HDF18120.wav"></audio>
     <audio preload="auto" id="kitchen-f" src="resources/audio/OVEN-DRA_7_GEN-HDF18121.wav"></audio>
 
-    <div class="transition animate-in">
+    <div class="transition">
         <img src="resources/img/game/transition_screen.png" alt="">
         <h2 class="display-0" id="transition-start">12:00 AM</h2>
         <h2 class="display-0" id="transition-night">Night <span id="night-count">1</span></h2>
+    </div>
+
+    <div class="preloader">
+        <img src="resources/img/game/preloader.png" alt="">
     </div>
 
     <!-- main -->
@@ -152,7 +156,7 @@
                 $('#call'+night+'').get(0).play();
                 $('.mute-call').fadeIn();
             }
-        }, 9000);
+        }, 27000);
         var getNight = parseInt(localStorage.getItem('night'));
         night = getNight || 1;
         $('#night-counter').html(night);
