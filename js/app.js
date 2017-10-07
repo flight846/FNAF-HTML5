@@ -488,17 +488,14 @@ function transitionScreen(night) {
             $('.transition').css('display', 'none');
             gamestart();
         }, 7900);
-        
+
     } else {
         $('.transition').css('display', 'none');
         $('.container:not(#start-screen)').css('opacity', '1');
         $('.transition').css('display', 'none');
         gamestart();
-<<<<<<< HEAD
+
     }, 8900);
-=======
-    }
->>>>>>> d02a78a972a6a25af6d6c1f90f69083a2aa2300c
 
     activeCamImg = 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
 
