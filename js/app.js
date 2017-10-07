@@ -11,6 +11,7 @@ var cameraMode = 0;
 var showStage = [1, 1, 1];
 var activeCamImg;
 var night = 1;
+var timesPlayed = 0;
 var power = 100;
 //var powerUsage = (leftDoor + rightDoor + rightLight + leftLight + cameraMode + 1);
 //var decrementPower = 15000 / powerUsage;
@@ -113,7 +114,7 @@ function burnPower() {
                 $('#game-start').get(0).pause();
                 $('#ambience2').get(0).pause();
             }, 600);
-            
+
             setTimeout(function () {
                 $('.main-screen').attr('src', 'resources/img/rooms/safe_room/safe_room_powerdown_foxy.gif');
                 $("#powerout-jingle").get(0).play();
@@ -257,7 +258,7 @@ function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
         insideRoom = 1;
         rooms[roomPath[currentRoom]][myId] = 0;
         rooms[roomPath[currentRoom]].occupy = 0;
-        
+
         if (myId == 'b') { leftDisabled = 1 }
         if (myId == 'c') { rightDisabled = 1 }
         console.log(myName + ' inside office!');
@@ -322,6 +323,8 @@ function toggleLeftDoor() {
     if (!leftDisabled) {
         leftDoor ? leftDoor = 0 : leftDoor = 1;
         toggleDoor('left', leftDoor);
+    } else if (leftDisabled) {
+        $('.door-light-disabled').get(0).play();
     }
 }
 
@@ -329,6 +332,8 @@ function toggleRightDoor() {
     if (!rightDisabled) {
         rightDoor ? rightDoor = 0 : rightDoor = 1;
         toggleDoor('right', rightDoor);
+    } else if (rightDisabled) {
+        $('.door-light-disabled').get(0).play();
     }
 }
 
@@ -353,6 +358,8 @@ function toggleLeftLight() {
         if (!leftDisabled) {
             leftLight = 1;
             processLightActivty(leftLight, 'left');
+        } else if (leftDisabled) {
+            $('.door-light-disabled').get(0).play();
         }
     });
 
@@ -374,6 +381,8 @@ function toggleRightLight() {
         if (!rightDisabled) {
             rightLight = 1;
             processLightActivty(rightLight, 'right');
+        } else if (rightDisabled) {
+            $('.door-light-disabled').get(0).play();
         }
     })
     $('#right-light-toggle').mouseup(function () {
@@ -517,6 +526,11 @@ function restart() {
     // setTimeout(function() {
     //     $('.main-screen').addClass('animate-out');
     // }, 4000);
+    timesPlayed++;
+    localStorage.setItem('night', String(night));
+    localStorage.setItem('timesPlayed', String(timesPlayed));
+
+
     setTimeout(function() {
         $('.main-screen').attr('src', 'resources/img/game/bonnie_gameover.png');
         $('.main-screen').addClass('animate-in');

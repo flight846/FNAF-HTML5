@@ -26,6 +26,15 @@
         $(document).ready(function() {
             console.log("Sound is playing?");
             $("#menu-start").get(0).play();
+
+            // show continue?
+            var getNight = localStorage.getItem('night');
+            var getTimesPlayed = localStorage.getItem('timesPlayed');
+
+            if (parseInt(getTimesPlayed) > 0) {
+                $('#night-no').html(getNight);
+                $('#continue-game').removeClass('display-0');
+            }
         });
     </script>
 </body>
