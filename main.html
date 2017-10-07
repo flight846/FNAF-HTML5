@@ -9,7 +9,11 @@
 </head>
 <body>
     <audio preload="auto" id="game-start" src="resources/audio/Buzz_Fan_Florescent2.wav" loop="loop" volume="0.1"></audio>
-    <audio preload="auto" id="call" src="resources/audio/voiceover1c.wav"></audio>
+    <audio preload="auto" id="call1" src="resources/audio/voiceover1.wav"></audio>
+    <audio preload="auto" id="call2" src="resources/audio/voiceover2.wav"></audio>
+    <audio preload="auto" id="call3" src="resources/audio/voiceover3.wav"></audio>
+    <audio preload="auto" id="call4" src="resources/audio/voiceover4.wav"></audio>
+    <audio preload="auto" id="call5" src="resources/audio/voiceover5.wav"></audio>
     <audio preload="auto" id="ambience2" src="resources/audio/ambience2.wav" loop="loop" volume="0.5"></audio>
     <audio preload="auto" id="scare" src="resources/audio/XSCREAM.wav"></audio>
     <audio preload="auto" id="powerout-sound" src="resources/audio/powerdown.wav"></audio>
@@ -144,8 +148,10 @@
     <script type="text/javascript" src="js/app.js"></script>
     <script>
         setTimeout(function() {
-            $("#call").get(0).play();
-            $('.mute-call').fadeIn();
+            if (night < 6) {
+                $('#call'+night+'').get(0).play();
+                $('.mute-call').fadeIn();
+            }
         }, 9000);
         var getNight = parseInt(localStorage.getItem('night'));
         night = getNight || 1;

@@ -110,7 +110,7 @@ function burnPower() {
                 $('#camera-bg2 img').removeClass('display-0, display-1').addClass('display-0');
 
                 $('#powerout-sound').get(0).play();
-                $('#call').get(0).pause();
+                $('#call'+night+'').get(0).pause();
                 $('#game-start').get(0).pause();
                 $('#ambience2').get(0).pause();
             }, 600);
@@ -153,7 +153,9 @@ function burnTime() {
             $('.main-screen').attr('src', 'resources/img/game/5_to_6.gif');
 
             //sounds
-            $('#call').get(0).pause();
+            if (night < 6) {
+                $('#call'+night+'').get(0).pause();
+            }
             $('#win-sound').get(0).play();
             setTimeout(function () { $('#win-cheer').get(0).play(); }, 2000);
             ++timesPlayed;
@@ -319,7 +321,7 @@ function playerWins() {
 }
 
 function muteCall() {
-    $("#call").get(0).pause();
+    $('#call'+night+'').get(0).pause();
     $('.mute-call').css('display', 'none');
 }
 
@@ -462,29 +464,37 @@ function cameraDown() {
 
 
 function transitionScreen(night) {
-    $('.container:not(#start-screen)').addClass('animate-out');
+    if (night < 2) {
+        $('.container:not(#start-screen)').addClass('animate-out');
 
-    setTimeout(function() {
-        $('.transition').addClass('animate-out');
-    }, 4900);
+        setTimeout(function() {
+            $('.transition').addClass('animate-out');
+        }, 4900);
 
-    setTimeout(function() {
-        $('.transition').removeClass('animate-out');
-        $('.transition img').attr('src', 'resources/img/game/transition-fade.gif');
-        $('.transition h2').toggleClass('display-1');
-        $('.transition #night-count').html(night);
-        $('.camera-cycle').get(0).play();
-    }, 6000);
+        setTimeout(function() {
+            $('.transition').removeClass('animate-out');
+            $('.transition img').attr('src', 'resources/img/game/transition-fade.gif');
+            $('.transition h2').toggleClass('display-1');
+            $('.transition #night-count').html(night);
+            $('.camera-cycle').get(0).play();
+        }, 6000);
 
-    setTimeout(function() {
-        $('.transition').addClass('animate-out');
-    }, 8000);
+        setTimeout(function() {
+            $('.transition').addClass('animate-out');
+        }, 8000);
 
-    setTimeout(function() {
+        setTimeout(function() {
+            $('.container:not(#start-screen)').css('opacity', '1');
+            $('.transition').css('display', 'none');
+            gamestart();
+        }, 7900);
+        
+    } else {
+        $('.transition').css('display', 'none');
         $('.container:not(#start-screen)').css('opacity', '1');
         $('.transition').css('display', 'none');
         gamestart();
-    }, 7900);
+    }
 
     activeCamImg = 'resources/img/rooms/1a_show_stage/cam_1a_b'+showStage[0]+'_c'+showStage[0]+'_f'+showStage[0]+'.png';
 
