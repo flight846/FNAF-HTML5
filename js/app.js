@@ -297,7 +297,7 @@ function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
             endGame = true;
             gameEnd = true;
             console.log(myName + ' attacked!');
-            setTimeout(function() { restart(); }, 10000);
+            setTimeout(function() { restart(); }, 8000);
         }
     }
     return { tick: tick };
