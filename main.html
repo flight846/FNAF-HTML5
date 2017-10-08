@@ -15,6 +15,7 @@
     <audio preload="auto" id="call4" src="resources/audio/voiceover4.wav"></audio>
     <audio preload="auto" id="call5" src="resources/audio/voiceover5.wav"></audio>
     <audio preload="auto" id="ambience2" src="resources/audio/ambience2.wav" loop="loop" volume="0.5"></audio>
+    <audio preload="auto" id="window-scare" src="resources/audio/windowscare.wav"></audio>
     <audio preload="auto" id="scare" src="resources/audio/XSCREAM.wav"></audio>
     <audio preload="auto" id="powerout-sound" src="resources/audio/powerdown.wav"></audio>
     <audio preload="auto" id="powerout-jingle" src="resources/audio/music box.wav" loop="loop"></audio>
@@ -152,15 +153,22 @@
     <script type="text/javascript" src="js/scratch-js.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script>
-        setTimeout(function() {
-            if (night < 6) {
-                $('#call'+night+'').get(0).play();
-                $('.mute-call').fadeIn();
-            }
-        }, 27000);
         var getNight = parseInt(localStorage.getItem('night'));
         night = getNight || 1;
         $('#night-counter').html(night);
+
+        if (night <= 1) {
+            setTimeout(function() {
+                $('#call'+night+'').get(0).play();
+                $('.mute-call').fadeIn();
+            }, 27000);
+        }
+        if (night >= 2 && night < 6) {
+            setTimeout(function() {
+                $('#call'+night+'').get(0).play();
+                $('.mute-call').fadeIn();
+            }, 4000);
+        }
     </script>
 </body>
 </html>
