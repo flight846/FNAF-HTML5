@@ -35,7 +35,7 @@ var foxyStatus = 0;
 var levelCode = Math.floor((Math.random() * 10) + 1); // random 1 to 10 ** how fast the anematronics move in seconds
 
 //time and power
-var _oneHour = 86; //ticks per hour
+var _oneHour = 860; //ticks per hour
 var currentTime = 0;
 var _perPowerUsage = 150; //ticks per powerbar
 var currentUsage = 0;
@@ -283,12 +283,21 @@ function moveAI(paraName, paraID, paraDoor, paraScare, paraPath) {
 
             //play sounds
             $("#scare").get(0).play();
-            setTimeout(function () { $("#scare").get(0).pause(); }, 4000);
+            setTimeout(function () {
+                $("#scare").get(0).pause();
+                $('.camera-cycle').get(0).play();
+                $('.main-screen').attr('src', 'resources/img/game/transition-fade.gif');
+            }, 2000);
+
+            setTimeout(function () {
+                $('#gameover-static').get(0).play();
+                $('.main-screen').attr('src', 'resources/img/game/static.gif');
+            }, 2200);
 
             endGame = true;
             gameEnd = true;
             console.log(myName + ' attacked!');
-            restart();
+            setTimeout(function() { restart(); }, 10000);
         }
     }
     return { tick: tick };
@@ -528,10 +537,9 @@ function cameraToggle(ele) {
     $('.camera-cycle').get(0).play();
 }
 
-function wait(to, interval) {
-    setTimeout(function() {
-        $('.main-screen').attr('src', to);
-    }, interval);
+function playRandomSound() {
+    // play random sounds at random 1 night
+
 }
 
 function restart() {
@@ -555,7 +563,7 @@ function restart() {
     }, 9500);
     setTimeout(function() {
         $(location).attr('href', 'index.html');
-    }, 14500);
+    }, 13500);
 
     return;
 }
